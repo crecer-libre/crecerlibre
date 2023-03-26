@@ -1,0 +1,13 @@
+.home-page {
+    background-color: #AED6F1;
+    border-radius: 6px;
+    padding: 30px;
+}
+
+.title {
+    font-family: 'Patrick Hand', cursive;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 4px;
+}
+

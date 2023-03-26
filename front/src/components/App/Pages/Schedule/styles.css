@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+
+.title-schedule {
+    font-family: 'Oxygen', sans-serif;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+/* schedule */
+.container h5 {
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* list professional */
+.list-professional {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+/* professional card */
+.professional-card {
+    background: #00ADF3;
+    width: 320px;
+    margin-bottom: 20px;
+}
+
+.professional-card img { 
+    object-fit: cover;
+    height: 300px;
+    width: 320px;
+}   
+
+.professional-description {
+    padding-left: 10px;
+    height: 40px;
+}
+
+.professional-description h3{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.professional-description h5{
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* list hour */
+.list-hours {
+    background: #cccccc;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.list-hours h5 {
+    font-size: 20px;
+    letter-spacing: 1.3px;
+    text-align: center;
+}
+
+/* hour component */
+.hour-component {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+    background: #fff;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.hour-component p {
+    font-size: 17px;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.hour-schedule {
+    border-radius: 50%;
+    padding: 5px;
+    background: #05C943;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+/* SCHEDULE HOUR */
+.schedule-hour {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+}
+
+
+.schedule-hour-professional {
+    margin: 10px;
+}
+
+.schedule-hour-professional img {
+    object-fit: cover;
+    width: 320px;
+    height: 320px;
+    
+}
+
+.schedule-hour-info {
+    margin: 10px;
+    width: 320px;
+    height: 320px;
+}
+.schedule-hour-info h3 {
+    background: #00ADF3;
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.schedule-hour-info-detail {
+    padding: 5px;
+}
+
+.schedule-input {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+}
+.schedule-input input{
+    outline: none;
+    font-size: 25px;
+    width: 100%;
+}
+
