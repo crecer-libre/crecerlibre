@@ -132,7 +132,7 @@ export const NavBar = () => {
           <div className="fixed inset-0 z-10" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-              <Link to="#" className="-m-1.5 p-1.5">
+              <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
                 <img
                   className="h-logo w-logo"
@@ -156,7 +156,7 @@ export const NavBar = () => {
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50">
-                          Product
+                          Servicios
                           <ChevronDownIcon
                             className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
                             aria-hidden="true"
@@ -178,30 +178,30 @@ export const NavBar = () => {
                     )}
                   </Disclosure>
                   <Link
-                    to="#"
+                    to="/"
                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Features
+                    Inicio
                   </Link>
                   <Link
-                    to="#"
+                    to="/agendar"
                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Marketplace
+                    Agendar Hora
                   </Link>
                   <Link
-                    to="#"
+                    to="/nosotros"
                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Company
+                    Nosotros
                   </Link>
                 </div>
                 <div className="py-6">
                   <Link
-                    to="#"
+                    to="/logout"
                     className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Log in
+                    Cerrar Sesión
                   </Link>
                 </div>
               </div>

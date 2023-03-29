@@ -1,12 +1,25 @@
-import React from 'react';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
+//archivos estaticos
 import profile from '../../../../../assets/profile.jpg';
 import "../styles.css";
+import RegisterComponent from './RegisterComponent';
 
 
 export const ScheduleHour = () => {
 
+    const navigate = useNavigate();
+    const [rut, setRut] = useState(true)
+
     const scheduler = () => {
         console.log("Agendar!");
+
+        //Validar si el rut existe en base de datos
+        if (rut){
+            setRut(false);
+        }
+
     }
 
     return (
@@ -33,6 +46,10 @@ export const ScheduleHour = () => {
                             placeholder='99.999.999-9' 
                         />
                     </div>
+
+                    {
+                        (!rut) && <RegisterComponent />
+                    }
 
                     <button onClick={scheduler} className="mt-3 p-2 rounded-full bg-green text-white text-lg">Agendar</button>
                 </div>
