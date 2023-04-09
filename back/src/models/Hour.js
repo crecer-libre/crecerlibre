@@ -5,6 +5,14 @@ const HourSchema = new Schema({
         type: Date,
         required: [true, 'The Date is requiresd.']
     },
+    proffesionalId: {
+        type: Number,
+        required: [true, 'The Id Proffesional is required.']
+    },
+    studentId: {
+        type: Number,
+        required: false
+    },
     active: {
         type: Boolean,
         default: true

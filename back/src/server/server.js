@@ -9,15 +9,14 @@ class Server {
 
         //paths
         this.authPath = '/api/auth';
-        this.userPath = '/api/user';
-        this.pokemonPath = '/api/pokemon';
+        this.professionalPath = '/api/professional';
 
         //db
         this.connection();
 
         //methods
         this.middlewares();
-        // this.routes();
+        this.routes();
     }
 
     async connection(){
@@ -30,9 +29,8 @@ class Server {
     }
 
     routes(){
-        // this.app.use( this.authPath, require('../routes/auth.route') );
-        // this.app.use( this.userPath, require('../routes/user.route') );
-        // this.app.use( this.pokemonPath, require('../routes/pokemon.route') );
+        this.app.use( this.authPath, require('../routes/auth') );
+        this.app.use( this.professionalPath, require('../routes/professional') );
     }
 
     listen(){
