@@ -15,12 +15,11 @@ const ProfessionalSchema = new Schema({
     },
     position: {
         type: String,
-        required: false
+        required: true
     },
     role: {
         type: String,
-        // enum: ['ADMIN_ROLE', 'PROFESSIONAL_ROLE'],
-        required: false
+        enum: ['ADMIN_ROLE', 'PROFESSIONAL_ROLE']
     },
     active: {
         type: Boolean,

@@ -1,7 +1,5 @@
 const { request, response } = require('express');
-const bcrypt = require('bcrypt');
-const Proffesional = require('../models/Professional');
-
+const bcrypt = require('bcryptjs');
 //generate token
 const { generateJWT, decodeToken } = require('../helpers/jwt');
 const Professional = require('../models/Professional');
@@ -12,14 +10,13 @@ const register = async (req = request, res = response) => {
             name,
             username,
             password,
+            role,
             position
         } = req.body;
 
-        // //hash password
-        // const salt = bcryptjs.genSaltSync(10);
-        // const hash = bcryptjs.hashSync(password, salt);
-
-        const professionalExists = await Proffesional.findOne({ username });
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+        const professionalExists = await Professional.findOne({ username });
 
         if (professionalExists) {
             return res.status(400).json({ msg: 'El nombre de usuario ya se encuentra en uso.' });
@@ -29,14 +26,14 @@ const register = async (req = request, res = response) => {
             name,
             username,
             password,
-            position
+            position,
+            role
         });
 
-        // professional.password = hash;
+        professional.password = hash;
+
         await professional.save();
-
         return res.status(201).json({msg: 'Profesional Registrado con exito!'});
-
 
     } catch (error) {
         return res.status(500).json({ "msg": "Error al registrar al Profesional. Por favor contactese con el Administrador." })
@@ -69,7 +66,7 @@ const login = async (req = request, res = response) => {
 
     res.json({
         msg: 'login',
-        nickname: professional.nickname,
+        username: professional.username,
         accessToken: tokens[0],
         refreshToken: tokens[1],
     });
