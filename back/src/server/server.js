@@ -9,7 +9,7 @@ class Server {
 
         //paths
         this.authPath = '/api/auth';
-        this.professionalPath = '/api/professional';
+        this.professionalPath = '/api/professionals';
 
         //db
         this.connection();
