@@ -10,6 +10,7 @@ class Server {
         //paths
         this.authPath = '/api/auth';
         this.professionalPath = '/api/professionals';
+        this.hourPath = '/api/hours';
 
         //db
         this.connection();
@@ -31,6 +32,7 @@ class Server {
     routes(){
         this.app.use( this.authPath, require('../routes/auth') );
         this.app.use( this.professionalPath, require('../routes/professional') );
+        this.app.use( this.hourPath, require('../routes/hour') );
     }
 
     listen(){

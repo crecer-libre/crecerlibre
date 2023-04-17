@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const generateJWT = ( id ) => {
-    const payload = { id };
+const generateJWT = ( id, username, role ) => {
+    const payload = { id, username, role };
     const privateKey = process.env.JWT_SECRET;
     
     const accessToken = jwt.sign(payload, privateKey, { expiresIn: '1h'});
@@ -23,7 +23,31 @@ const decodeToken = ( token ) => {
     });
 };
 
+const verifyToken = (req, res, next) => {
+    const token = req.header('Authorization');
+
+    if(!token){
+        return res.status(401).json({
+            msg: 'Token is required.'
+        });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const {username} = decoded;
+
+    } catch (error) {
+        return res.status(401).json({
+            msg: 'Invalid Token.'
+        });
+    }
+
+    return next();
+
+};
+
 module.exports = {
     generateJWT,
     decodeToken,
+    verifyToken
 }

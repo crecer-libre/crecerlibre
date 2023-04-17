@@ -62,7 +62,11 @@ const login = async (req = request, res = response) => {
     }
 
     //falta generar el jwt
-    const tokens = await generateJWT(professional.id);
+    const tokens = await generateJWT(
+        professional.id,
+        professional.username,
+        professional.role
+        );
 
     res.json({
         msg: 'login',
