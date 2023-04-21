@@ -19,7 +19,7 @@ const createHour = async (req = request, res = response) => {
         const hour = new Hour({
             proffesionalId: professional.id,
             date: date,
-            status: "Hora Disponible"
+            status: "HORA_DISPONIBLE"
         });
 
         await hour.save();
@@ -33,7 +33,7 @@ const createHour = async (req = request, res = response) => {
             msg: 'Error al generar la hora pedagogica.'
         });
     }
-}
+};
 
 const scheduleHour = async (req = request, res = response) => {
     try {
@@ -50,7 +50,7 @@ const scheduleHour = async (req = request, res = response) => {
         const hour = await Hour.findOne({id: idHour});
 
         hour.studentId = student.id;
-        hour.status = "Hora Tomada"
+        hour.status = "HORA_TOMADA"
 
         await hour.save();
 
@@ -63,15 +63,74 @@ const scheduleHour = async (req = request, res = response) => {
             msg: "Error al tomar hora pedagogica."
         })
     }
-}
+};
 
-const updateHour = () => {
+const getHoursByProfessional = async (req = request, res = response) => {
+    try {
+        const {username} = await decodeToken(req.header('Authorization')); 
+        const professional = await Professional.findOne({username});
+        const hours = await Hour.find({proffesionalId: professional.id, active: true, status: 'HORA_DISPONIBLE'});
 
-}
+        return res.status(200).json({
+            hours
+        })
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Error al mostrar horas."
+        })
+    }
+};
+
+const updateHour = async ( req = request, res = response ) => {
+    try {
+        const { idHour } = req.body;
+        const hour = await Hour.find({id: idHour})
+        hour.status = 'HORA_FINALIZADA';
+        await hour.save();
+
+        return res.status(200).json({
+            msg: "Se actualizo el estado de la hora pedagogica."
+        })
+    
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Error al actualizar hora."
+        })
+    }
+};
+
+const getHoursByProfessionals = async ( req = request, res = response ) => {
+    try {
+        let professionalHours = [];
+    
+        const professionals = await Professional.find({role: 'PROFESSIONAL_ROLE'});
+        
+        professionals.map(async (p) => {
+            const getHours = await Hour.find({proffesionalId: p.id, status: 'HORA_DISPONIBLE'});
+        
+            const hours = {
+                professional: p,
+                hours: getHours
+            };
+
+            professionalHours.push(hours);
+        })
+
+        return res.status(200).json({
+            professionalHours
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Error al listar horas."
+        })
+    }
+};  
 
 module.exports = {
     createHour,
     scheduleHour,
-    updateHour
-
+    updateHour,
+    getHoursByProfessional,
+    getHoursByProfessionals
 }

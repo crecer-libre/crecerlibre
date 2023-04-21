@@ -15,7 +15,8 @@ const HourSchema = new Schema({
     },
     status: {
         type: String,
-        required: [true, 'The Status Hour is required.']
+        required: [true, 'The Status Hour is required.'],
+        default: 'HORA_DISPONIBLE'
     },
     active: {
         type: Boolean,
