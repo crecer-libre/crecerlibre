@@ -13,6 +13,6 @@ router.post('/create', verifyToken, createHour);
 router.put('/update', verifyToken, updateHour);
 router.post('/schedule', scheduleHour);
 router.get('/professional-hours', verifyToken, getHoursByProfessional);
-router.get('/professionals-hours', getHoursByProfessionals);
+router.get('', getHoursByProfessionals);
 
 module.exports = router;

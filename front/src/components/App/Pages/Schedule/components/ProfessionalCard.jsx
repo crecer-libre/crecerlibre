@@ -3,7 +3,7 @@ import '../styles.css';
 import profile from '../../../../../assets/profile.jpg';
 import { ListHoursComponent } from './ListHoursComponent';
 
-export const ProfessionalCard = () => {
+export const ProfessionalCard = ({proHour}) => {
 
 
 
@@ -12,8 +12,8 @@ export const ProfessionalCard = () => {
             <img src={profile} alt="image" />
 
             <div className='professional-description'>
-                <h3>Makarena Estay</h3>
-                <h5>Profesora Diferencial</h5>
+                <h3>{proHour.professional.name}</h3>
+                <h5>{proHour.professional.position}</h5>
             </div>
 
             <div className='professinal-diary'>

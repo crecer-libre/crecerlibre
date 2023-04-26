@@ -100,25 +100,27 @@ const updateHour = async ( req = request, res = response ) => {
 };
 
 const getHoursByProfessionals = async ( req = request, res = response ) => {
-    try {
-        let professionalHours = [];
-    
+    try {        
         const professionals = await Professional.find({role: 'PROFESSIONAL_ROLE'});
-        
-        professionals.map(async (p) => {
-            const getHours = await Hour.find({proffesionalId: p.id, status: 'HORA_DISPONIBLE'});
-        
-            const hours = {
+        const hours = await Hour.find({ status: 'HORA_DISPONIBLE' });
+        let hoursList = [];
+
+        professionals.map((p) => {
+            const hoursFilter = hours.filter(h => h.proffesionalId == p.id);
+
+            const proHour = {
                 professional: p,
-                hours: getHours
+                hours: hoursFilter
             };
 
-            professionalHours.push(hours);
+            hoursList.push(proHour);
         })
 
         return res.status(200).json({
-            professionalHours
+            msg: 'ok',
+            hoursList
         })
+
 
     } catch (error) {
         return res.status(500).json({

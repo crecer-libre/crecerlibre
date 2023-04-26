@@ -1,16 +1,35 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { ProfessionalCard } from './ProfessionalCard';
+import { getProfessionalsHoursAPI } from '../../../../../helpers/hours';
 
 export const ListProfessional = () => {
     
-    const [professionals, setProfessionals] = useState([1,2,3,4,5,6,7,8]);
+    const [professionals, setProfessionals] = useState([]);
+
+    useEffect(() => {
+
+        getProfessionalsHoursAPI()
+            .then((hours) => {
+                console.log(hours);
+                setProfessionals(hours.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });    
+
+        return () => {
+            setProfessionals([]);
+        }
+
+    }, [])
     
     return (
         <div className='list-professional'>
             {
-                professionals.map((p, index) => (
+                professionals.map((p) => (
                     <ProfessionalCard 
-                        key={index}
+                        key={p.professional.id}
+                        proHour={p}
                     />
                 ))
             }
