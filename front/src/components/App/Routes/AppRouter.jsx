@@ -16,7 +16,7 @@ export const AppRouter = () => {
                     <Route path='/nosotros' element={<AboutPage />} />
                     {/* SCHEDULE */}
                     <Route path='/agendar' element={<SchedulePage />} />
-                    <Route path='/agendar/confirmar' element={<ScheduleHour />} />
+                    <Route path='/agendar/:id' element={<ScheduleHour />} />
                 </Routes>
             </div>
             {/* <Footer /> */}

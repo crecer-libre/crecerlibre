@@ -129,10 +129,35 @@ const getHoursByProfessionals = async ( req = request, res = response ) => {
     }
 };  
 
+const getHourById = async (req = request, res = response) => {
+    try {   
+        const {id} = req.params;
+
+        const hour = await Hour.findOne({id: id});
+        const professional = await Professional.findOne({id: hour.proffesionalId});
+
+        const proHour = {
+            hour,
+            professional
+        }
+
+        return res.status(200).json({
+            msg: 'ok',
+            proHour
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Error al mostrar Hora."
+        })
+    }
+}
+
 module.exports = {
     createHour,
     scheduleHour,
     updateHour,
     getHoursByProfessional,
-    getHoursByProfessionals
+    getHoursByProfessionals,
+    getHourById
 }

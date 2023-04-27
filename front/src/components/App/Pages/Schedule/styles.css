@@ -20,7 +20,7 @@
 .list-professional {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 
@@ -58,6 +58,11 @@
     background: #cccccc;
     padding: 15px;
     margin-top: 20px;
+}
+
+.list-hours-component {
+    height: 200px;
+    overflow-y: scroll;
 }
 
 .list-hours h5 {

@@ -1,20 +1,20 @@
-import {useState} from 'react';
 import { HourComponent } from './HourComponent';
 
-export const ListHoursComponent = () => {
-
-    const [hoursAvailable, setHoursAvailable] = useState([1,2,3]);
-
+export const ListHoursComponent = ({ hours }) => {
     return (
         <div className='list-hours'>
             <h5>Horarios disponibles</h5>
-            {
-                hoursAvailable.map((h, index) => (
-                    <HourComponent 
-                        key={index}
-                    />
-                ))
-            }
+
+            <div className='list-hours-component'>
+                {
+                    hours.map((h) => (
+                        <HourComponent
+                            key={h.id}
+                            hour={h}
+                        />
+                    ))
+                }
+            </div>
         </div>
     )
 }

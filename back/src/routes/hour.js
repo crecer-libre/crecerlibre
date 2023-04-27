@@ -6,7 +6,8 @@ const {
     scheduleHour, 
     updateHour, 
     getHoursByProfessional, 
-    getHoursByProfessionals
+    getHoursByProfessionals,
+    getHourById
 } = require('../controllers/hour');
 
 router.post('/create', verifyToken, createHour);
@@ -14,5 +15,6 @@ router.put('/update', verifyToken, updateHour);
 router.post('/schedule', scheduleHour);
 router.get('/professional-hours', verifyToken, getHoursByProfessional);
 router.get('', getHoursByProfessionals);
+router.get('/:id', getHourById);
 
 module.exports = router;
