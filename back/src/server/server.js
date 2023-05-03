@@ -11,6 +11,7 @@ class Server {
         this.authPath = '/api/auth';
         this.professionalPath = '/api/professionals';
         this.hourPath = '/api/hours';
+        this.studentPath = '/api/students';
 
         //db
         this.connection();
@@ -33,6 +34,7 @@ class Server {
         this.app.use( this.authPath, require('../routes/auth') );
         this.app.use( this.professionalPath, require('../routes/professional') );
         this.app.use( this.hourPath, require('../routes/hour') );
+        this.app.use( this.studentPath, require('../routes/student') );
     }
 
     listen(){

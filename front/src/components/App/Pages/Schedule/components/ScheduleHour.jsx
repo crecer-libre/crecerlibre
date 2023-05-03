@@ -1,26 +1,80 @@
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useEffect, useState} from 'react';
 
 //archivos estaticos
 import profile from '../../../../../assets/profile.jpg';
 import "../styles.css";
 import RegisterComponent from './RegisterComponent';
+import { getStudentByRutAPI } from '../../../../../helpers/students';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { scheduleHourAPI } from '../../../../../helpers/hours';
+import { PopUpComponent } from './PopUpComponent';
 
 
 export const ScheduleHour = () => {
 
-    const navigate = useNavigate();
-    const [rut, setRut] = useState(true)
+    const nagivate = useNavigate();
+    const {id} = useParams();
+    const [rut, setRut] = useState('');
+    const [studentFound, setStudentFound] = useState();
+    const [scheduleMsg, setScheduleMsg] = useState({
+        status: null,
+        msg: ''
+    });
+
+    useEffect(() => {
+        console.log('scheduleMsg cambio!');
+    }, [scheduleMsg])
 
     const scheduler = () => {
         console.log("Agendar!");
 
         //Validar si el rut existe en base de datos
-        if (rut){
-            setRut(false);
+        if (rut.trim() === '') {
+            console.log('RUT VACIO');
+            return;
+        }
+
+        if (rut.trim() !== '') {
+            getStudentByRutAPI(rut).then((student) => {
+                console.log(student);
+                if (student.status == 500) {
+                    setStudentFound(false);
+                    return;
+                };
+
+                if(student.status == 200) {
+                    const obj = {id, rut};
+                    scheduleHourAPI(obj).then((schedule) => {
+                        console.log(schedule);
+                        if(schedule.status == 200){
+                            
+                            setScheduleMsg({
+                                status: 200,
+                                msg: schedule.data
+                            });
+                            setTimeout(() => {
+                                nagivate('/');
+                            }, 4000);
+                        }
+
+                        if(schedule.status == 500){
+                            console.log(schedule);
+                            setScheduleMsg({
+                                status: 500,
+                                msg: schedule.data
+                            });
+                        }
+                    });
+                }
+            });
         }
 
     }
+
+    const onChangeRut = (e) => {
+        const value = e.target.value;
+        setRut(value);
+    };
 
     return (
         <div className="schedule-hour">
@@ -43,13 +97,21 @@ export const ScheduleHour = () => {
                         <p>Rut Alumno</p>
                         <input 
                             type="text"
-                            placeholder='99.999.999-9' 
+                            placeholder='99.999.999-9'
+                            onChange={onChangeRut}
                         />
                     </div>
-
+                    
                     {
-                        (!rut) && <RegisterComponent />
+                        (scheduleMsg.status == 200) && <PopUpComponent obgMsg={scheduleMsg}/> 
                     }
+                    {
+                        (scheduleMsg.status == 500) && <PopUpComponent obgMsg={scheduleMsg}/> 
+                    }
+                    {
+                        (studentFound == false) && <RegisterComponent />
+                    }
+                    
 
                     <button onClick={scheduler} className="mt-3 p-2 rounded-full bg-green text-white text-lg">Agendar</button>
                 </div>

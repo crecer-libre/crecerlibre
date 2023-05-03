@@ -1,11 +1,10 @@
 import { axiosApi } from "./api";
 
-export const getProfessionalsHoursAPI = async () => {
+export const getStudentByRutAPI = async (rut) => {
     try {
-        const resp = await axiosApi.get('/hours');
+        const resp = await axiosApi.get('/students/' + rut);
         const { status, data } = resp;
-        const { hoursList } = data;
-        return { status, data: hoursList };
+        return { status, data: data.msg };
     } catch (error) {
         return {
             status: 500,
@@ -20,19 +19,6 @@ export const getHourByIdAPI = async (id) => {
         const { status, data } = resp;
         const { proHour } = data;
         return { status, data: proHour };
-    } catch (error) {
-        return {
-            status: 500,
-            data: null
-        }
-    }
-}
-
-export const scheduleHourAPI = async (obj) => {
-    try {
-        const resp = await axiosApi.put('/hours/schedule', obj);
-        const { status, data } = resp;
-        return { status, data: data.msg };
     } catch (error) {
         return {
             status: 500,
