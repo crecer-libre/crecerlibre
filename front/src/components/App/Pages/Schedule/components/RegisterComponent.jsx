@@ -1,12 +1,75 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { UserIcon } from '@heroicons/react/24/outline'
+import { useForm } from '../../../../../hooks/useForm';
 import "../styles.css";
+import { useNavigate } from 'react-router-dom';
+import { registerStudentAPI } from '../../../../../helpers/students';
 
-export default function RegisterComponent() {
-    const [open, setOpen] = useState(true)
+export const RegisterComponent = () => {
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(true);
+    const cancelButtonRef = useRef(null);
+    const [studentMsg, setStudentMsg] = useState({
+        status: null,
+        msg: ''
+    });
 
-    const cancelButtonRef = useRef(null)
+    const [value, handleInputChange] = useForm({
+        rut: '',
+        name: '',
+        lastName: '',
+        phone: ''
+    });
+
+    const { rut, name, lastName, phone } = value;
+
+    const handleStudentRegister = () => {
+        const student = { rut, name, lastName, phone }
+
+        if(rut == '' || name == '' || lastName == '' || phone == ''){
+            return ;
+        }
+
+        registerStudentAPI(student)
+            .then((std) => {
+                console.log(std);
+                if (std.status == 200) {
+                    setStudentMsg({
+                        status: 200,
+                        msg: std.data
+                    });
+
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3500)
+                }
+
+                if (std.status == 404) {
+                    setStudentMsg({
+                        status: 404,
+                        msg: std.data
+                    });
+
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3500)
+                }
+
+                if (std.status == 500) {
+                    setStudentMsg({
+                        status: 500,
+                        msg: std.data
+                    });
+
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3500)
+                }
+            })
+        setOpen(false);
+
+    }
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -54,6 +117,8 @@ export default function RegisterComponent() {
                                                     <div className='group-forms'>
                                                         <span>Rut Alumno</span>
                                                         <input
+                                                            name="rut"
+                                                            onChange={handleInputChange}
                                                             type="text"
                                                             class="rounded text-black-500 outline-none text-right"
                                                             placeholder='12.345.678-9'
@@ -62,15 +127,28 @@ export default function RegisterComponent() {
                                                     <div className='group-forms'>
                                                         <span>Nombre Alumno</span>
                                                         <input
+                                                            name="name"
+                                                            onChange={handleInputChange}
                                                             type="text"
                                                             class="rounded text-black-500 outline-none text-right"
-                                                            placeholder='Makarena Estay'
+                                                            placeholder='Makarena'
                                                         />
                                                     </div>
-
+                                                    <div className='group-forms'>
+                                                        <span>Apellido Alumno</span>
+                                                        <input
+                                                            name="lastName"
+                                                            onChange={handleInputChange}
+                                                            type="text"
+                                                            class="rounded text-black-500 outline-none text-right"
+                                                            placeholder='Estay'
+                                                        />
+                                                    </div>
                                                     <div className='group-forms'>
                                                         <span>Teléfono Apoderado</span>
                                                         <input
+                                                            name="phone"
+                                                            onChange={handleInputChange}
                                                             type="text"
                                                             class="rounded text-black-500 outline-none text-right"
                                                             placeholder='911223344'
@@ -83,14 +161,12 @@ export default function RegisterComponent() {
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
-                                        type="button"
+                                        onClick={handleStudentRegister}
                                         className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-300 sm:ml-3 sm:w-auto"
-                                        onClick={() => setOpen(false)}
                                     >
                                         Registrar
                                     </button>
                                     <button
-                                        type="button"
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                         onClick={() => setOpen(false)}
                                         ref={cancelButtonRef}

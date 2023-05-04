@@ -13,6 +13,20 @@ export const getStudentByRutAPI = async (rut) => {
     }
 };
 
+export const registerStudentAPI = async (obj) => {
+    try {
+        const resp = await axiosApi.post('/students/register', obj);
+        const { status, data } = resp;
+        return { status, data: data.msg };
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+};
+
+
 export const getHourByIdAPI = async (id) => {
     try {
         const resp = await axiosApi.get('/' + id);

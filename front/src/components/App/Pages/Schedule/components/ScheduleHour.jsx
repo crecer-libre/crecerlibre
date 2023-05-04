@@ -3,11 +3,11 @@ import {useEffect, useState} from 'react';
 //archivos estaticos
 import profile from '../../../../../assets/profile.jpg';
 import "../styles.css";
-import RegisterComponent from './RegisterComponent';
 import { getStudentByRutAPI } from '../../../../../helpers/students';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { scheduleHourAPI } from '../../../../../helpers/hours';
 import { PopUpComponent } from './PopUpComponent';
+import { RegisterComponent } from './RegisterComponent';
 
 
 export const ScheduleHour = () => {

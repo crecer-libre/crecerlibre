@@ -13,7 +13,7 @@ const registerStudent = async (req = request, res = response) => {
         const studentExist = await Student.findOne({rut: rut});
 
         if (studentExist) {
-            return res.status(200).json({msg: "El Rut ingresado se encuentra registrado."});
+            return res.status(404).json({msg: "El Rut ingresado se encuentra registrado."});
         }
 
         const student = Student({
