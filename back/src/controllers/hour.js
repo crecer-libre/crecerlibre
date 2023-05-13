@@ -38,21 +38,18 @@ const createHour = async (req = request, res = response) => {
 const scheduleHour = async (req = request, res = response) => {
     try {
         const {idHour ,rut} = req.body;
-
-        const student = await Student.findOne({rut})
+        const student = await Student.findOne({rut});
 
         if(!student){
-            return res.status(200).json({
+            return res.status(404).json({
                 msg: 'El Rut no se encuentra registrado.'
             });
         }
-
-        const hour = await Hour.findOne({id: idHour});
-
-        hour.studentId = student.id;
-        hour.status = "HORA_TOMADA"
-
-        await hour.save();
+    
+        await Hour.findByIdAndUpdate(idHour, {
+            studentId: student.id,
+            status: "HORA_TOMADA"
+        });
 
         return res.status(200).json({
             msg: "Hora agendada correctamente."
@@ -103,7 +100,7 @@ const getHoursByProfessionals = async ( req = request, res = response ) => {
     try {        
         const professionals = await Professional.find({role: 'PROFESSIONAL_ROLE'});
         const hours = await Hour.find({ status: 'HORA_DISPONIBLE' });
-        let hoursList = [];
+        let hoursListArr = [];
 
         professionals.map((p) => {
             const hoursFilter = hours.filter(h => h.proffesionalId == p.id);
@@ -113,8 +110,13 @@ const getHoursByProfessionals = async ( req = request, res = response ) => {
                 hours: hoursFilter
             };
 
-            hoursList.push(proHour);
+            hoursListArr.push(proHour);
         })
+
+
+        const hoursList = hoursListArr.filter((h) => h.hours.length > 0);
+        
+
 
         return res.status(200).json({
             msg: 'ok',

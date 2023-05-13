@@ -26,28 +26,28 @@
 
 /* professional card */
 .professional-card {
-    background: #00ADF3;
+    background: #fff;
     width: 320px;
     margin-bottom: 20px;
 }
 
-.professional-card img { 
+.professional-card img {
     object-fit: cover;
     height: 300px;
     width: 320px;
-}   
+}
 
 .professional-description {
-    padding-left: 10px;
+    background: #00ADF3;
     height: 40px;
 }
 
-.professional-description h3{
+.professional-description h3 {
     font-size: 20px;
     font-weight: 500;
 }
 
-.professional-description h5{
+.professional-description h5 {
     font-size: 15px;
     font-weight: 500;
     text-transform: uppercase;
@@ -55,14 +55,30 @@
 
 /* list hour */
 .list-hours {
-    background: #cccccc;
-    padding: 15px;
+    padding: 5px;
     margin-top: 20px;
 }
 
 .list-hours-component {
     height: 200px;
+    /* Establece la altura del div con desplazamiento */
     overflow-y: scroll;
+    /* Hace que el contenido sea desplazable */
+    scrollbar-width: none;
+    /* Oculta la barra de desplazamiento en Firefox */
+    -ms-overflow-style: none;
+}
+
+.list-hours-component::-webkit-scrollbar {
+    width: 0.0em;
+}
+
+.list-hours-component::-webkit-scrollbar-track {
+    background-color: #00ADF3;
+}
+
+.list-hours-component::-webkit-scrollbar-thumb {
+    background-color: #00ADF3;
 }
 
 .list-hours h5 {
@@ -106,6 +122,10 @@
     align-content: center;
 }
 
+.hour-hour {
+    color: #232323;
+}
+
 
 .schedule-hour-professional {
     margin: 10px;
@@ -115,7 +135,7 @@
     object-fit: cover;
     width: 320px;
     height: 320px;
-    
+
 }
 
 .schedule-hour-info {
@@ -123,6 +143,7 @@
     width: 320px;
     height: 320px;
 }
+
 .schedule-hour-info h3 {
     background: #00ADF3;
     text-align: center;
@@ -143,7 +164,8 @@
     display: block;
     width: 100%;
 }
-.schedule-input input{
+
+.schedule-input input {
     outline: none;
     font-size: 25px;
     width: 100%;

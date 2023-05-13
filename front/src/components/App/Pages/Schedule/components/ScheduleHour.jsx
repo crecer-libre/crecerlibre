@@ -43,7 +43,7 @@ export const ScheduleHour = () => {
                 };
 
                 if(student.status == 200) {
-                    const obj = {id, rut};
+                    const obj = {idHour: id, rut};
                     scheduleHourAPI(obj).then((schedule) => {
                         console.log(schedule);
                         if(schedule.status == 200){
@@ -77,7 +77,7 @@ export const ScheduleHour = () => {
     };
 
     return (
-        <div className="schedule-hour">
+        <div className="schedule-hour animate__animated animate__bounce">
             <div className='schedule-hour-professional'>
                 <img src={profile} alt="" />
 

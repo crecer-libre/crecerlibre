@@ -10,7 +10,6 @@ export const ListProfessional = () => {
 
         getProfessionalsHoursAPI()
             .then((hours) => {
-                console.log(hours);
                 setProfessionals(hours.data);
             })
             .catch((err) => {

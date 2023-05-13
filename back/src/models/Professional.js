@@ -17,6 +17,10 @@ const ProfessionalSchema = new Schema({
         type: String,
         required: true
     },
+    gender: {
+        type: String,
+        required: [true, 'The gender is required for register to Professional']
+    },
     role: {
         type: String,
         enum: ['ADMIN_ROLE', 'PROFESSIONAL_ROLE']
