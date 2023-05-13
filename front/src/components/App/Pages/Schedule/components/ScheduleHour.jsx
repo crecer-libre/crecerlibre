@@ -77,7 +77,7 @@ export const ScheduleHour = () => {
     };
 
     return (
-        <div className="schedule-hour animate__animated animate__bounce">
+        <div className="schedule-hour animate__animated animate__fadeIn">
             <div className='schedule-hour-professional'>
                 <img src={profile} alt="" />
 

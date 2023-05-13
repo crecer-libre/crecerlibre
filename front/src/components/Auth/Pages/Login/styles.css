@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;700&display=swap');
+
+
+
+.login {   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.login-crecerlibre {
+    width: 320px;
+    flex-wrap: wrap;
+    vertical-align: baseline;
+}
+
+.login-crecerlibre h3 {
+    text-align: left;
+    font-size: 40px;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: 700;
+}
+
+.login-crecerlibre p {
+    text-align: left;
+    font-size: 20px;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    background: #DCDCDC;
+    border-radius: 10px;
+    width: 320px;
+    /* height: 350px; */
+    padding: 16px;
+}
+
+.login-form .login-input {
+    margin-bottom: 10px;
+}
+
+.login-form input {
+    padding: 13px;
+    border-radius: 8px;
+    width: 100%;
+    
+}
+
+.login-form button {
+    background: #128FFF;
+    color: #fff;
+    padding: 13px;
+    border-radius: 8px;
+    font-family: 'Merriweather Sans', sans-serif;
+    width: 100%;
+}
