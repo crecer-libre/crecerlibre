@@ -11,7 +11,8 @@ const register = async (req = request, res = response) => {
             username,
             password,
             role,
-            position
+            position,
+            gender
         } = req.body;
 
         const salt = bcrypt.genSaltSync(10);
@@ -27,7 +28,8 @@ const register = async (req = request, res = response) => {
             username,
             password,
             position,
-            role
+            role,
+            gender
         });
 
         professional.password = hash;
