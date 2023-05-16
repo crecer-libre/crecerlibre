@@ -1,14 +1,10 @@
 import axios from "axios";
 
-const host = 'localhost';
+const remotehost = '44.204.124.49';
+const localhost = 'localhost';
 
-export const axiosAuth = axios.create({
-    baseURL: `http://${host}:5000/auth`,
-    mode: 'no-cors',
-    cache: 'default'
-});
 export const axiosApi = axios.create({
-    baseURL: `http://${host}:5000/api`,
+    baseURL: `http://${localhost}:5000/api`,
     mode: 'no-cors',
     cache: 'default'
 });
