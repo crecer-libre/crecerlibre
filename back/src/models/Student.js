@@ -9,10 +9,6 @@ const StudentSchema = new Schema({
         type: String,
         required: [true, 'The name is required for register to Student']
     },
-    lastName: {
-        type: String,
-        required: [true, 'The last name is required for register to Student']
-    },
     phone: {
         type: String,
         required: [true, 'The phone is required for register to Student']

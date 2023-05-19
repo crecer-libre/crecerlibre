@@ -1,5 +1,18 @@
 import { axiosApi } from "./api";
 
+export const getStudentsAPI = async () => {
+    try {
+        const resp = await axiosApi.get('/students');
+        const { status, data } = resp;
+        return { status, data};
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+};
+
 export const getStudentByRutAPI = async (rut) => {
     try {
         const resp = await axiosApi.get('/students/' + rut);

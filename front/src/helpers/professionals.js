@@ -1,16 +1,17 @@
 import { axiosApi } from "./api";
 
 
-export const getProfessionals = async () => {
+export const getProfessionalsAPI = async () => {
     try {
 
         const resp = await axiosApi.get('/professionals');
-        const professionals = await resp.json();
-        const {
-            
-        } = professionals;
+        const {status, data} = resp;
+        return {status, data}
 
     } catch (error) {
-        
+        return {
+            status: 500,
+            msg: 'Actualmente no podemos mostrar a los profesionales.'
+        }
     }
 };

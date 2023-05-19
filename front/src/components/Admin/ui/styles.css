@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+.name_foundation {
+    font-family: 'Patrick Hand', cursive;
+    font-weight: 600;
+    color: #fff;
+    font-size: 20px;
+}
+
+.app {
+    position: relative;
+    min-height: 100vh;
+}
+
+.img {
+    border-radius: 3px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

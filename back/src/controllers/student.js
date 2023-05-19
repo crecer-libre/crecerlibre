@@ -51,7 +51,19 @@ const findStudentByRut = async (req = request, res = response) => {
     }
 }
 
+const getAllStudent = async ( req = request, res = response ) => {
+    try {
+        const students = await Student.find();
+
+        return res.status(200).json(students);
+
+    } catch (error) {
+        return res.status(500).json({msg: "Error, comuniquese con el administrador."})
+    }
+}
+
 module.exports = {
     findStudentByRut,
-    registerStudent
+    registerStudent,
+    getAllStudent
 }
