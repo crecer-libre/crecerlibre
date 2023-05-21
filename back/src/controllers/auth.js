@@ -72,7 +72,9 @@ const login = async (req = request, res = response) => {
 
     res.json({
         msg: 'login',
+        id: professional.id,
         username: professional.username,
+        role:professional.role,
         accessToken: tokens[0],
         refreshToken: tokens[1],
     });

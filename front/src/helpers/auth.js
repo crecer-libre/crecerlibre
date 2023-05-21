@@ -6,6 +6,7 @@ export const loginAPI = async (obj) => {
         const { status, data } = resp;
 
         localStorage.setItem('user', JSON.stringify(data.username));
+        localStorage.setItem('role', JSON.stringify(data.role));
         localStorage.setItem('accessToken', JSON.stringify(data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken));
 
