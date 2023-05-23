@@ -15,7 +15,7 @@ export const AdminRouter = () => {
           <Route path='/' element={<AdminPage />} />
           <Route path='/profesionales' element={<ProfessionalPage />} />
           <Route path='/estudiantes' element={<StudentPage />} />
-          <Route path='/hora' element={<HourPage />} />
+          <Route path='/horas' element={<HourPage />} />
         </Routes>
       </div>
       {/* <Footer /> */}

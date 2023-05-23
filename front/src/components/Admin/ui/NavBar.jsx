@@ -115,8 +115,8 @@ export const NavBar = () => {
             <Link to="" className="text-sm font-semibold leading-6 text-white">
               Inicio
             </Link>
-            <Link to="hora" className="text-sm font-semibold leading-6 text-white">
-              Crear hora
+            <Link to="horas" className="text-sm font-semibold leading-6 text-white">
+              Horas
             </Link>
             <Link to="profesionales" className="text-sm font-semibold leading-6 text-white">
               Profesionales

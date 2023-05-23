@@ -19,11 +19,16 @@ export const loginAPI = async (obj) => {
     }
 }
 
-export const registerAPI = (obj) => { 
+export const createProfessionalAPI = async (obj) => {
     try {
-        
+        const resp = await axiosApi.post('/auth/register', obj);
+        const { status, data } = resp;
+        return { status, data: data.msg };
     } catch (error) {
-        
+        return {
+            status: 500,
+            data: null
+        }
     }
 }
 
