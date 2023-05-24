@@ -1,3 +1,21 @@
+.alert-form-error {
+    background: #fcadad;
+    border: 1.5px solid #ff2323;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.alert-form-success {
+    background: #bbffbb;
+    border: 1.5px solid #0eca2d;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
 .title-operation {
     font-size: 22px;
     text-transform: uppercase;
