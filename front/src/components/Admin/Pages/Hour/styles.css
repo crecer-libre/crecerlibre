@@ -1,0 +1,80 @@
+.hour-page {
+    display: flex;
+    justify-content: space-around;
+}
+
+.hour-create {
+    width: 25%;
+    display: block;
+}
+
+.hour-create input {
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    background: #f1f1f1;
+    font-size: 17px;
+    color: #232323;
+    outline: none;
+    width: 100%;
+}
+
+.hour-create button {
+    display: block;
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 6px;
+    background: #3877ff;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 1.7px;
+    color: #fff;
+    outline: none;
+    width: 100%;
+}
+.hour-create button:hover {
+    display: block;
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 6px;
+    background: #aec6fa;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 1.7px;
+    color: #fff;
+    outline: none;
+    width: 100%;
+}
+
+.hour-list {
+    width: 65%;
+}
+
+.button-create button {
+    display: block;
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 6px;
+    background: #3877ff;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 1.7px;
+    color: #fff;
+    outline: none;
+    width: 100%;
+}
+.button-create button:hover {
+    display: block;
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 6px;
+    background: #aec6fa;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 1.7px;
+    color: #fff;
+    outline: none;
+    width: 100%;
+}
+
