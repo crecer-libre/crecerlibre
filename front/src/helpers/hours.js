@@ -14,6 +14,26 @@ export const getProfessionalsHoursAPI = async () => {
     }
 };
 
+export const getProfessionalHoursAPI = async (token) => {
+    try {
+        const resp = await axiosApi.get('/hours/professional-hours', {
+            headers: {
+                'Authorization': token
+            }
+        });
+        const { status, data } = resp;
+
+        console.log(data.hours);
+    
+        return { status, data };
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+};
+
 export const getHourByIdAPI = async (id) => {
     try {
         const resp = await axiosApi.get('/' + id);

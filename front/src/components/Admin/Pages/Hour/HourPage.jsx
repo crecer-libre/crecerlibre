@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import "./styles.css";
+import { ListHourComponent } from './components/ListHourComponent';
 
 export const HourPage = () => {
 
@@ -32,7 +33,7 @@ export const HourPage = () => {
       <div className='hour-list'>
       <h3 className='title-operation'>Listar horas</h3>
         <hr />
-        
+        <ListHourComponent />
       </div>
     </div>
   )

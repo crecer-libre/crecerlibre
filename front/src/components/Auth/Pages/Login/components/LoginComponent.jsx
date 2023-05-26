@@ -27,7 +27,8 @@ export const LoginComponent = () => {
                 setUser({
                     id: auth.data.id,
                     username: auth.data.username,
-                    role: auth.data.role
+                    role: auth.data.role,
+                    accessToken: auth.data.accessToken
                 });
 
                 setMsgStatus(auth.status);

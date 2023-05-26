@@ -66,7 +66,7 @@ const getHoursByProfessional = async (req = request, res = response) => {
     try {
         const {username} = await decodeToken(req.header('Authorization')); 
         const professional = await Professional.findOne({username});
-        const hours = await Hour.find({proffesionalId: professional.id, active: true, status: 'HORA_DISPONIBLE'});
+        const hours = await Hour.find({proffesionalId: professional.id, active: true});
 
         return res.status(200).json({
             hours

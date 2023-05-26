@@ -6,7 +6,8 @@ export const CrecerLibreProvider = ({ children }) => {
     const [user, setUser] = useState({
         id: null,
         username: '',
-        role: ''
+        role: '',
+        accessToken: ''
     });
 
     return (
