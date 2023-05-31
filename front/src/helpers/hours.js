@@ -60,3 +60,16 @@ export const scheduleHourAPI = async (obj) => {
         }
     }
 }
+
+export const createHourAPI = async (obj) => {
+    try {
+        const resp = await axiosApi.post('/hours/create', obj);
+        const { status, data } = resp;
+        return { status, data: data.msg };
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+}

@@ -33,33 +33,48 @@ export const CreateStudent = () => {
             phone,
         };
 
-        
+
 
         if (rut.trim() === '' || name.trim() === '' || phone.trim() === '') {
             setError('Todos los campos son obligatorios.');
             return;
         } else {
 
-            if(validarRut(String(rut.trim())) === false){
+            if (validarRut(String(rut.trim())) === false) {
                 setValidateRut('El Rut ingresado no es valido.');
+                setTimeout(() => {
+                    setValidateRut('');
+                }, 3000)
             } else if (validarNumeroCelularChileno(phone.trim()) === false) {
                 setValidatePhone('El Celular ingresado no es valido.');
+                setTimeout(() => {
+                    setValidatePhone('');
+                }, 3000)
             } else {
 
                 registerStudentAPI(student)
                     .then((s) => {
                         console.log(s);
-    
-                        if (s.status === 200){
+
+                        if (s.status === 201) {
                             setSuccessCreate('Estudiante creado correctamente.');
                             setTimeout(() => {
-                              navigate('./estudiantes');
+                                navigate('./estudiantes');
                             }, 2000);
-                          } else {
-                            setErrorCreate('Error, comuniquese con el administrador.');
-                          }
-    
+                        } else {
+                            setErrorCreate('Error al crear el registro.');
+                            setTimeout(() => {
+                                setErrorCreate('');
+                            }, 3000)
+                        }
                     })
+                    .catch(() => {
+                        setErrorCreate('Error, comuniquese con el administrador.');
+                        setTimeout(() => {
+                            setErrorCreate('');
+                        }, 3000)
+                    })
+
             }
 
 

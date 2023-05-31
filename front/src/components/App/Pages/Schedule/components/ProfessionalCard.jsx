@@ -8,7 +8,7 @@ import { ListHoursComponent } from './ListHoursComponent';
 export const ProfessionalCard = ({ proHour }) => {
     return (
 
-        <div className="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 bg-sky-400 dark:text-gray-100">
+        <div className="flex flex-col justify-center max-w-xs p-6 mt-5 shadow-md rounded-xl sm:px-12 bg-sky-400 dark:text-gray-100">
             {
                 (proHour.professional.gender === 'M') && <img src={man} alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
             }

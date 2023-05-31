@@ -1,0 +1,29 @@
+.alert-auth-success {
+    background: #D5F5E3;
+    border-radius: 6px;
+    border: 1.5px solid #2ECC71;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.alert-auth-success span {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.alert-auth-error {
+    background: #FADBD8;
+    border-radius: 6px;
+    border: 1.5px solid #C0392B;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.alert-auth-error span {
+    font-size: 22px;
+    font-weight: 400;
+}

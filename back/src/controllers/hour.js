@@ -6,12 +6,12 @@ const { decodeToken } = require('../helpers/jwt');
 
 const createHour = async (req = request, res = response) => {
     try {
-        const {username} = await decodeToken(req.header('Authorization')); 
-        const professional = await Professional.findOne({username});
-
         const {
+            username,
             date
         } = req.body;
+
+        const professional = await Professional.findOne({username});
 
         console.log(professional.id);
         console.log(date);

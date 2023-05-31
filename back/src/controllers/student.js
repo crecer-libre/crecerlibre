@@ -25,7 +25,7 @@ const registerStudent = async (req = request, res = response) => {
 
         await student.save();
 
-        return res.status(200).json({msg: "Sus datos han sido guardados."});
+        return res.status(201).json({msg: "Sus datos han sido guardados."});
 
     } catch (error) {
         return res.status(500).json({msg: "Error, comuniquese con el administrador."});

@@ -7,7 +7,7 @@ import { AdminRouter } from '../components/Admin/Routes/AdminRouter';
 export const CrecerLibreRoutes = () => {
   return (
     <Routes>
-        {/* <Route path='/*' element={<AppRouter />}/> */}
+        <Route path='/*' element={<AppRouter />}/>
         <Route path='/auth/*' element={<AuthRouter />}/>
         <Route path='/admin/*' element={<AdminRouter />}/>
     </Routes>

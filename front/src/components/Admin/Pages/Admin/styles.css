@@ -1,3 +1,8 @@
+.admin-page {
+    display: flex;
+    justify-content: space-around;
+}
+
 .format-rut {
     font-size: 13px;
     color: #858585;
@@ -33,10 +38,7 @@
 .operations {
     display: block;
     justify-content: center;
-}
-
-.operation-create {
-   width: 30%;
+    width: 500px;
 }
 
 .operation-create input, select {
@@ -78,6 +80,4 @@
     width: 100%;
 }
 
-.operation-list {
-    width: 70%;
-}
+

@@ -10,7 +10,7 @@ const {
     getHourById
 } = require('../controllers/hour');
 
-router.post('/create', verifyToken, createHour);
+router.post('/create', createHour);
 router.put('/update', verifyToken, updateHour);
 router.put('/schedule', scheduleHour);
 router.get('/professional-hours', verifyToken, getHoursByProfessional);

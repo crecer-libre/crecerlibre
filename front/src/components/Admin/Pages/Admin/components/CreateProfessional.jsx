@@ -50,9 +50,17 @@ export const CreateProfessional = () => {
               navigate('./profesionales');
             }, 2000);
           } else {
-            setErrorCreate('Error al crear profesional, comuniquese con el administrador.');
+            setErrorCreate('Error al crear profesional.'); 
+            setTimeout(() => {
+              setErrorCreate(''); 
+            },3000);
           }
-
+        })
+        .catch(() => {
+          setErrorCreate('Error comuniquese con el administrador.'); 
+            setTimeout(() => {
+              setErrorCreate(''); 
+            },3000);
         })
     }
 
