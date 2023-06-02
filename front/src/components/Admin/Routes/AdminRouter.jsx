@@ -16,9 +16,15 @@ export const AdminRouter = () => {
           <Route element={<ProtectRoutes />}>
             <Route path='/' element={<AdminPage />} />
           </Route>
-          <Route path='/profesionales' element={<ProfessionalPage />} />
-          <Route path='/estudiantes' element={<StudentPage />} />
-          <Route path='/horas' element={<HourPage />} />
+          <Route element={<ProtectRoutes />}>
+            <Route path='/profesionales' element={<ProfessionalPage />} />
+          </Route>
+          <Route element={<ProtectRoutes />}>
+            <Route path='/estudiantes' element={<StudentPage />} />
+          </Route>
+          <Route element={<ProtectRoutes />}>
+            <Route path='/horas' element={<HourPage />} />
+          </Route>
         </Routes>
       </div>
       {/* <Footer /> */}
