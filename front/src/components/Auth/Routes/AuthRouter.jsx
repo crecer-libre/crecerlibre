@@ -9,7 +9,10 @@ export const AuthRouter = () => {
       <NavBar />
       <div className='container mx-auto mt-6 p-5'>
         <Routes>
-          <Route path='/login' element={<LoginPage />} />
+          <Route path='' element={<LoginPage />} />
+
+          {/* validate routes than not exists */}
+          <Route path='*' element={<LoginPage />} />
         </Routes>
       </div>
       {/* <Footer /> */}

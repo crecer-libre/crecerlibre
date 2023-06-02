@@ -5,6 +5,7 @@ import { NavBar } from '../ui/NavBar'
 import { ProfessionalPage } from '../Pages/Professional/ProfessionalPage'
 import { StudentPage } from '../Pages/Student/StudentPage'
 import { HourPage } from '../Pages/Hour/HourPage'
+import { ProtectRoutes } from '../../../routes/ProtectRoutes'
 
 export const AdminRouter = () => {
   return (
@@ -12,7 +13,9 @@ export const AdminRouter = () => {
       <NavBar />
       <div className='container mx-auto mt-6 p-5'>
         <Routes>
-          <Route path='/' element={<AdminPage />} />
+          <Route element={<ProtectRoutes />}>
+            <Route path='/' element={<AdminPage />} />
+          </Route>
           <Route path='/profesionales' element={<ProfessionalPage />} />
           <Route path='/estudiantes' element={<StudentPage />} />
           <Route path='/horas' element={<HourPage />} />
