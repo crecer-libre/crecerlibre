@@ -5,11 +5,14 @@ import { useForm } from '../../../../../hooks/useForm';
 import "../styles.css";
 import { useNavigate } from 'react-router-dom';
 import { registerStudentAPI } from '../../../../../helpers/students';
+import { validarNumeroCelularChileno, validarRut } from '../../../../../helpers/functions';
 
 export const RegisterComponent = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const cancelButtonRef = useRef(null);
+    const [validateRut, setValidateRut] = useState('');
+    const [validatePhone, setValidatePhone] = useState('');
     const [studentMsg, setStudentMsg] = useState({
         status: null,
         msg: ''
@@ -18,57 +21,71 @@ export const RegisterComponent = () => {
     const [value, handleInputChange] = useForm({
         rut: '',
         name: '',
-        lastName: '',
+        email: '',
         phone: ''
     });
 
-    const { rut, name, lastName, phone } = value;
+    const { rut, name, email, phone } = value;
 
     const handleStudentRegister = () => {
-        const student = { rut, name, lastName, phone }
+        const student = { rut, name, email, phone }
 
-        if(rut == '' || name == '' || lastName == '' || phone == ''){
-            return ;
+        if (rut === '' || name.trim === '' || email === '' || phone === '') {
+            return;
+        } else {
+            if (validarRut(student.rut.trim()) === false) {
+                setValidateRut('El Rut ingresado no es valido.');
+                setTimeout(() => {
+                    setValidateRut('');
+                }, 3000)
+            } else if (validarNumeroCelularChileno(phone.trim()) === false) {
+                setValidatePhone('El Celular ingresado no es valido.');
+                console.log(validatePhone);
+                setTimeout(() => {
+                    setValidatePhone('');
+                }, 3000)
+            } else {
+
+                console.log(student);
+                registerStudentAPI(student)
+                    .then((std) => {
+                        console.log(std);
+                        if (std.status == 200) {
+                            setStudentMsg({
+                                status: 200,
+                                msg: std.data
+                            });
+
+                            setTimeout(() => {
+                                navigate('/');
+                            }, 3500)
+                        }
+
+                        if (std.status == 404) {
+                            setStudentMsg({
+                                status: 404,
+                                msg: std.data
+                            });
+
+                            setTimeout(() => {
+                                navigate('/');
+                            }, 3500)
+                        }
+
+                        if (std.status == 500) {
+                            setStudentMsg({
+                                status: 500,
+                                msg: std.data
+                            });
+
+                            setTimeout(() => {
+                                navigate('/');
+                            }, 3500)
+                        }
+                    })
+            }
         }
-
-        registerStudentAPI(student)
-            .then((std) => {
-                console.log(std);
-                if (std.status == 200) {
-                    setStudentMsg({
-                        status: 200,
-                        msg: std.data
-                    });
-
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 3500)
-                }
-
-                if (std.status == 404) {
-                    setStudentMsg({
-                        status: 404,
-                        msg: std.data
-                    });
-
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 3500)
-                }
-
-                if (std.status == 500) {
-                    setStudentMsg({
-                        status: 500,
-                        msg: std.data
-                    });
-
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 3500)
-                }
-            })
         setOpen(false);
-
     }
 
     return (
@@ -120,28 +137,31 @@ export const RegisterComponent = () => {
                                                             name="rut"
                                                             onChange={handleInputChange}
                                                             type="text"
-                                                            class="rounded text-black-500 outline-none text-right"
-                                                            placeholder='12.345.678-9'
+                                                            className="rounded text-black-500 outline-none text-right"
+                                                            placeholder='12345678-9'
                                                         />
                                                     </div>
+                                                    {
+                                                        (validateRut !== '') && <p>{validateRut}</p>
+                                                    }
                                                     <div className='group-forms'>
                                                         <span>Nombre Alumno</span>
                                                         <input
                                                             name="name"
                                                             onChange={handleInputChange}
                                                             type="text"
-                                                            class="rounded text-black-500 outline-none text-right"
-                                                            placeholder='Makarena'
+                                                            className="rounded text-black-500 outline-none text-right"
+                                                            placeholder='Nombre y Apellido'
                                                         />
                                                     </div>
                                                     <div className='group-forms'>
-                                                        <span>Apellido Alumno</span>
+                                                        <span>Email</span>
                                                         <input
-                                                            name="lastName"
+                                                            name="email"
                                                             onChange={handleInputChange}
                                                             type="text"
-                                                            class="rounded text-black-500 outline-none text-right"
-                                                            placeholder='Estay'
+                                                            className="rounded text-black-500 outline-none text-right"
+                                                            placeholder='email@email.com'
                                                         />
                                                     </div>
                                                     <div className='group-forms'>
@@ -150,7 +170,7 @@ export const RegisterComponent = () => {
                                                             name="phone"
                                                             onChange={handleInputChange}
                                                             type="text"
-                                                            class="rounded text-black-500 outline-none text-right"
+                                                            className="rounded text-black-500 outline-none text-right"
                                                             placeholder='911223344'
                                                         />
                                                     </div>
@@ -174,6 +194,11 @@ export const RegisterComponent = () => {
                                         Cancel
                                     </button>
                                 </div>
+
+
+                                {
+                                    (validatePhone !== '') && <p className='alert-form-error animate__animated animate__bounceIn'>{validatePhone}</p>
+                                }
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>

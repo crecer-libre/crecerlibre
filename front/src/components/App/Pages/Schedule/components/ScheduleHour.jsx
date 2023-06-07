@@ -2,12 +2,15 @@ import {useEffect, useState} from 'react';
 
 //archivos estaticos
 import profile from '../../../../../assets/profile.jpg';
+import man from '../../../../../assets/avatar_man.png';
+import woman from '../../../../../assets/avatar_woman.png';
 import "../styles.css";
 import { getStudentByRutAPI } from '../../../../../helpers/students';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { scheduleHourAPI } from '../../../../../helpers/hours';
+import { getHourByIdAPI, scheduleHourAPI } from '../../../../../helpers/hours';
 import { PopUpComponent } from './PopUpComponent';
 import { RegisterComponent } from './RegisterComponent';
+import { formatearFecha } from '../../../../../helpers/functions';
 
 
 export const ScheduleHour = () => {
@@ -15,11 +18,24 @@ export const ScheduleHour = () => {
     const nagivate = useNavigate();
     const {id} = useParams();
     const [rut, setRut] = useState('');
+    const [hour, setHour] = useState();
+    const [professional, setProfessional] = useState();
     const [studentFound, setStudentFound] = useState();
     const [scheduleMsg, setScheduleMsg] = useState({
         status: null,
         msg: ''
     });
+
+    useEffect(() => {
+        getHourByIdAPI(id)
+            .then((h) => {
+                console.log(h);
+                if (h.status === 500) return ;
+                const {hour, professional} = h.data.proHour;
+                setHour(hour);
+                setProfessional(professional);
+            });
+    }, []);
 
     useEffect(() => {
         console.log('scheduleMsg cambio!');
@@ -68,7 +84,6 @@ export const ScheduleHour = () => {
                 }
             });
         }
-
     }
 
     const onChangeRut = (e) => {
@@ -79,11 +94,12 @@ export const ScheduleHour = () => {
     return (
         <div className="schedule-hour animate__animated animate__fadeIn">
             <div className='schedule-hour-professional'>
-                <img src={profile} alt="" />
-
+                {
+                    (professional?.gender === 'F') ? <img src={woman} alt="" /> : <img src={man} alt="" />
+                }
                 <div className='bg-skyBlue mt-3 p-3'>
-                    <p className='text-3xl text-white'>Makarena Estay</p>
-                    <p className='text-lg text-white'>Cargo: Profesora Diferencial</p>
+                    <p className='text-3xl text-white'>{professional?.name}</p>
+                    <p className='text-lg text-white'>{professional?.position}</p>
                 </div>
             </div>
             <div className='schedule-hour-info'>
@@ -91,7 +107,7 @@ export const ScheduleHour = () => {
 
                 <div className='schedule-hour-info-detail'>
                     <p className='text-lg'>Fecha</p>
-                    <p className='text-3xl'>Lunes 10 - 18:30 hrs</p>
+                    <p className='text-3xl'>{formatearFecha(hour?.date)}</p>
 
                     <div className='schedule-input'>
                         <p>Rut Alumno</p>

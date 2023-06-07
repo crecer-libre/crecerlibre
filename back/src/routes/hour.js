@@ -13,7 +13,7 @@ const {
 router.post('/create', createHour);
 router.put('/update', verifyToken, updateHour);
 router.put('/schedule', scheduleHour);
-router.get('/professional-hours', verifyToken, getHoursByProfessional);
+router.get('/professional-hours/:id', getHoursByProfessional);
 router.get('', getHoursByProfessionals);
 router.get('/:id', getHourById);
 

@@ -4,6 +4,10 @@ const Professional = require('../models/Professional');
 const Student = require('../models/Student');
 const { decodeToken } = require('../helpers/jwt');
 
+function compararFechas(a, b) {
+    return a.fecha - b.fecha;
+}
+
 const createHour = async (req = request, res = response) => {
     try {
         const {
@@ -64,12 +68,22 @@ const scheduleHour = async (req = request, res = response) => {
 
 const getHoursByProfessional = async (req = request, res = response) => {
     try {
-        const {username} = await decodeToken(req.header('Authorization')); 
-        const professional = await Professional.findOne({username});
+        const {id} = req.params;
+        const professional = await Professional.findById(id);
+        const hoursForValidation = await Hour.find({proffesionalId: professional.id, active: true});
+
+        //validation for hours not taken
+        hoursForValidation.filter( h => h.date < Date.now() && h.status === "HORA_DISPONIBLE").map(async h => {
+            const hourFailed = await Hour.findById(h.id);
+            hourFailed.status = "HORA_EXPIRADA";
+            await hourFailed.save();
+        })
+
         const hours = await Hour.find({proffesionalId: professional.id, active: true});
 
+
         return res.status(200).json({
-            hours
+            hours: hours.reverse()
         })
     } catch (error) {
         return res.status(500).json({
@@ -104,26 +118,18 @@ const getHoursByProfessionals = async ( req = request, res = response ) => {
 
         professionals.map((p) => {
             const hoursFilter = hours.filter(h => h.proffesionalId == p.id);
-
             const proHour = {
                 professional: p,
                 hours: hoursFilter
             };
-
             hoursListArr.push(proHour);
         })
-
-
         const hoursList = hoursListArr.filter((h) => h.hours.length > 0);
-        
-
 
         return res.status(200).json({
             msg: 'ok',
             hoursList
         })
-
-
     } catch (error) {
         return res.status(500).json({
             msg: "Error al listar horas."
@@ -134,20 +140,18 @@ const getHoursByProfessionals = async ( req = request, res = response ) => {
 const getHourById = async (req = request, res = response) => {
     try {   
         const {id} = req.params;
-
-        const hour = await Hour.findOne({id: id});
-        const professional = await Professional.findOne({id: hour.proffesionalId});
-
+        const hour = await Hour.findById(id);
+        console.log('hour: ', hour);
+        const professional = await Professional.findById(hour.proffesionalId);
+        console.log('professional: ', professional);
         const proHour = {
             hour,
             professional
         }
-
         return res.status(200).json({
             msg: 'ok',
             proHour
         })
-
     } catch (error) {
         return res.status(500).json({
             msg: "Error al mostrar Hora."

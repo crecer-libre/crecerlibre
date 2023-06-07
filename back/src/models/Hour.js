@@ -18,6 +18,10 @@ const HourSchema = new Schema({
         required: [true, 'The Status Hour is required.'],
         default: 'HORA_DISPONIBLE'
     },
+    observation: {
+        type: String,
+        required: false
+    },
     active: {
         type: Boolean,
         default: true

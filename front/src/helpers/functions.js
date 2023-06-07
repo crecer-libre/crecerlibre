@@ -27,3 +27,24 @@ export const validarNumeroCelularChileno = (numero) => {
   const regex = /^(\+?56)?(9)[98765432]\d{7}$/;
   return regex.test(numero);
 };
+
+export const formatearFecha = (fecha) => {
+  // Crea un objeto Date con la fecha proporcionada
+  var date = new Date(fecha);
+
+  // Obtiene los componentes de la fecha
+  var dia = date.getDate();
+  var mes = date.getMonth() + 1; // Los meses empiezan en 0, por lo que se suma 1
+  var anio = date.getFullYear();
+  var horas = date.getHours() + 4;
+  var minutos = date.getMinutes();
+
+  // Asegura que los componentes tengan 2 dígitos
+  dia = dia < 10 ? '0' + dia : dia;
+  mes = mes < 10 ? '0' + mes : mes;
+  horas = horas < 10 ? '0' + horas : horas;
+  minutos = minutos < 10 ? '0' + minutos : minutos;
+
+  // Devuelve la fecha formateada
+  return dia + '/' + mes + '/' + anio + ' ' + horas + ':' + minutos;
+}

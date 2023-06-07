@@ -9,8 +9,14 @@ const StudentSchema = new Schema({
         type: String,
         required: [true, 'The name is required for register to Student']
     },
+    email: {
+        type: String,
+        unique: true,
+        required: [true, 'The phone is required for register to Student']
+    },
     phone: {
         type: String,
+        unique: true,
         required: [true, 'The phone is required for register to Student']
     },
     active: {
