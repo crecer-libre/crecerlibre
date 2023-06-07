@@ -1,6 +1,6 @@
 import "./styles.css";
-import { Fragment, useState } from 'react'
-import {Link} from 'react-router-dom';
+import { Fragment, useContext, useState } from 'react'
+import {Link, useNavigate} from 'react-router-dom';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -17,11 +17,12 @@ import {
 
 import logo from "../../../assets/logo_verde.png";
 import logo_blanco from "../../../assets/logo_blanco.png";
+import { logoutAPI } from "../../../helpers/auth";
+import { CrecerLibreContext } from "../../../context/crecerlibreContext";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
-  
 
 const products = [
     { name: 'Analytics', description: 'Get Link better understanding of your traffic', to: '#', icon: ChartPieIcon },
@@ -37,11 +38,43 @@ const products = [
 
 export const NavBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const navigate = useNavigate();
+    const {user} = useContext(CrecerLibreContext);
+
+    const logout = () => {
+      console.log("LOGOUT!!!");
+      Cookies.set('id', '');
+      Cookies.set('username', '');
+      Cookies.set('role', '');
+      Cookies.set('accessToken', '');
+      Cookies.set('isAuthenticated', 'false');
+      
+      setUser({
+        id: null,
+        username: null,
+        role: null,
+        accessToken: null,
+        isAuthenticated: false
+      });
+  
+      navigate('/auth');
+    }
+
     return (
         <header className="bg-green">
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
-            <Link to="" className="flex flex-row items-center">
+          {
+            (!user.isAuthenticated) ?
+              <Link to="/" className="flex flex-row items-center">
+                <span className="sr-only">Your Company</span>
+                <img className="h-logo w-logo" src={logo} alt="" />
+                <div className="ml-2">
+                  <p className='name_foundation'>Crecer Libre</p>
+                  <p className='name_foundation'>Fundación</p>
+                </div>
+              </Link> : 
+              <Link to="/admin" className="flex flex-row items-center">
               <span className="sr-only">Your Company</span>
               <img className="h-logo w-logo" src={logo} alt="" />
               <div className="ml-2">
@@ -49,6 +82,7 @@ export const NavBar = () => {
                 <p className='name_foundation'>Fundación</p>
               </div>
             </Link>
+          }
           </div>
           <div className="flex lg:hidden">
             <button
@@ -122,11 +156,19 @@ export const NavBar = () => {
               Nosotros
             </Link>
           </Popover.Group>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="logout" className="text-sm font-semibold leading-6 text-white">
+
+          {
+            (!user.isAuthenticated) ? <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to="/auth" className="text-sm font-semibold leading-6 text-white">
+              Iniciar Sesión <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div> : <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to="logout" onClick={logout} className="text-sm font-semibold leading-6 text-white">
               Cerrar Sesión <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
+          }
+          
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-10" />
@@ -198,7 +240,8 @@ export const NavBar = () => {
                 </div>
                 <div className="py-6">
                   <Link
-                    to="/logout"
+                    to="/auth"
+                    onClick={logout}
                     className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Cerrar Sesión

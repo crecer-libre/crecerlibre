@@ -40,16 +40,16 @@ const callsToAction = [
 export const NavBar = () => {
 
   const navigate = useNavigate();
-  const { setUser } = useContext(CrecerLibreContext);
+  const { user, setUser } = useContext(CrecerLibreContext);
 
-  const handleLogout = () => {
+  const logout = () => {
     console.log("LOGOUT!!!");
     Cookies.set('id', '');
     Cookies.set('username', '');
     Cookies.set('role', '');
     Cookies.set('accessToken', '');
     Cookies.set('isAuthenticated', 'false');
-    
+
     setUser({
       id: null,
       username: null,
@@ -67,14 +67,26 @@ export const NavBar = () => {
     <header className="bg-green">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link to="" className="flex flex-row items-center">
-            <span className="sr-only">Your Company</span>
-            <img className="h-logo w-logo" src={logo} alt="" />
-            <div className="ml-2">
-              <p className='name_foundation'>Crecer Libre</p>
-              <p className='name_foundation'>Fundación</p>
-            </div>
-          </Link>
+          {
+            (!user.isAuthenticated) ?
+              <Link to="/" className="flex flex-row items-center">
+                <span className="sr-only">Your Company</span>
+                <img className="h-logo w-logo" src={logo} alt="" />
+                <div className="ml-2">
+                  <p className='name_foundation'>Crecer Libre</p>
+                  <p className='name_foundation'>Fundación</p>
+                </div>
+              </Link> : 
+              <Link to="/admin" className="flex flex-row items-center">
+              <span className="sr-only">Your Company</span>
+              <img className="h-logo w-logo" src={logo} alt="" />
+              <div className="ml-2">
+                <p className='name_foundation'>Crecer Libre</p>
+                <p className='name_foundation'>Fundación</p>
+              </div>
+            </Link>
+          }
+
         </div>
         <div className="flex lg:hidden">
           <button
@@ -151,11 +163,17 @@ export const NavBar = () => {
             Estudiantes
           </Link>
         </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/auth" onClick={handleLogout} className="text-sm font-semibold leading-6 text-white">
-            Cerrar Sesión <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </div>
+        {
+          (!user.isAuthenticated) ? <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to="/auth" className="text-sm font-semibold leading-6 text-white">
+              Iniciar Sesión <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div> : <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <Link to="/auth" onClick={logout} className="text-sm font-semibold leading-6 text-white">
+              Cerrar Sesión <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        }
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />
@@ -227,7 +245,7 @@ export const NavBar = () => {
               </div>
               <div className="py-6">
                 <Link
-                  to="/logout"
+                  to="/auth"
                   className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Cerrar Sesión

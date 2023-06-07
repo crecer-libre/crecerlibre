@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { axiosApi } from "./api";
 
 export const loginAPI = async (obj) => {
@@ -28,7 +29,9 @@ export const createProfessionalAPI = async (obj) => {
 }
 
 export const logoutAPI = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    Cookies.set('id', '');
+    Cookies.set('username', '');
+    Cookies.set('role', '');
+    Cookies.set('accessToken', '');
+    Cookies.set('isAuthenticated', JSON.stringify(false));
 }

@@ -16,20 +16,6 @@ export const HourPage = () => {
 
   return (
     <div className='container mx-auto hour-page'>
-      <div className='hour-create'>
-        <h3 className='title-operation'>Crear hora</h3>
-        <hr />
-        <form>
-          <p className='format-rut mt-3'>Debes ingresar Fecha y Hora.</p>
-          <input
-            type="datetime-local"
-            id="fechaHora"
-            name="fechaHora"
-            onChange={handleDateTimeChange}
-          />
-          <button>Crear hora</button>
-        </form>
-      </div>
       <div className='hour-list'>
       <h3 className='title-operation'>Listar horas</h3>
         <hr />
