@@ -13,6 +13,9 @@ export const ListHourComponent = () => {
                 if (h.status !== 200) return setErrorList('Error al mostrar horas. Intentelo más tarde.');
                 setHours(h.data.hours);
             })
+            .catch(() => {
+                setHours([]);
+            })
         return () => {
             setHours([]);
         }

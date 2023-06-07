@@ -14,6 +14,7 @@ export const ListProfessional = () => {
             })
             .catch((err) => {
                 console.log(err);
+                setProfessionals([])
             });    
 
         return () => {
