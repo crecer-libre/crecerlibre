@@ -16,6 +16,7 @@ export const ProfessionalPage = () => {
                 }
             }).catch((error) => {
                 setError(error.msg);
+                setProfessionals([]);
             })
 
         return () => {
