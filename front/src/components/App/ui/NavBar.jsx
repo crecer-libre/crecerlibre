@@ -146,13 +146,13 @@ export const NavBar = () => {
               </Transition>
             </Popover>
 
-            <Link to="" className="text-sm font-semibold leading-6 text-white">
+            <Link to="/" className="text-sm font-semibold leading-6 text-white">
               Inicio
             </Link>
-            <Link to="agendar" className="text-sm font-semibold leading-6 text-white">
+            <Link to="/agendar" className="text-sm font-semibold leading-6 text-white">
               Agendar Hora
             </Link>
-            <Link to="nosotros" className="text-sm font-semibold leading-6 text-white">
+            <Link to="/nosotros" className="text-sm font-semibold leading-6 text-white">
               Nosotros
             </Link>
           </Popover.Group>

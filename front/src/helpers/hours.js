@@ -72,3 +72,17 @@ export const createHourAPI = async (obj) => {
         }
     }
 }
+
+export const getHoursByProfessionalAPI = async (id) => {
+    try {
+        const resp = await axiosApi.get('/hours/professional-hours/' + id);
+        const { status, data } = resp;
+        return { status, data };
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+}
+
