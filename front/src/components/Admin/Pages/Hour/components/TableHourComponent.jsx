@@ -1,6 +1,7 @@
 import React from 'react'
+import { TableHourListComponent } from './TableHourListComponent'
 
-export const TableHourComponent = ({ hour }) => {
+export const TableHourComponent = ({ hours }) => {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -10,41 +11,21 @@ export const TableHourComponent = ({ hour }) => {
                             Profesional
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Nombre de usuario
+                            Estudiante
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Cargo
+                            Fecha
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Genero
+                            Estado
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Action
+                            Observación
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-             
-              
-                            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" >
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Pedrito
-                                </th>
-                                <td className="px-6 py-4">
-                                    pedrito
-                                </td>
-                                <td className="px-6 py-4">
-                                    la que sea
-                                </td>
-                                <td className="px-6 py-4">
-                                    Masculino
-                                </td>
-                                <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
-                
-
+                    <TableHourListComponent hours={hours}/>
                 </tbody>
             </table>
         </div>

@@ -14,17 +14,10 @@ export const getProfessionalsHoursAPI = async () => {
     }
 };
 
-export const getProfessionalHoursAPI = async (token) => {
+export const getProfessionalHoursAPI = async (id) => {
     try {
-        const resp = await axiosApi.get('/hours/professional-hours', {
-            headers: {
-                'Authorization': token
-            }
-        });
+        const resp = await axiosApi.get('/hours/professional-hours/' + id);
         const { status, data } = resp;
-
-        console.log(data.hours);
-    
         return { status, data };
     } catch (error) {
         return {
@@ -86,3 +79,15 @@ export const getHoursByProfessionalAPI = async (id) => {
     }
 }
 
+export const generateObservationByIdAPI = async (id, obj) => {
+    try {
+        const resp = await axiosApi.post('hours/observation/' + id, obj);
+        const { status, data } = resp;
+        return { status, data };
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+}

@@ -78,3 +78,47 @@
     width: 100%;
 }
 
+/* observation component */
+.observation-component {
+}
+
+
+.observation-form {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.observation-form input{
+    border: 1.3px solid #adadad;
+    border-radius: 6px;
+    outline: none;
+    padding-left: 3px;
+    font-size: 22px;
+}
+
+.observation-form button{
+    background: #2fff86;
+    border-radius: 6px;
+    padding: 5px;
+    font-size: 22px;
+    align-items: center;
+    margin-left: 5px;
+    color: #232323;
+}
+
+.observation-form button:hover{
+    background: #cafddf;
+}
+
+.observation-msg {
+    margin-left: 0px;
+    border: 1px solid #3877ff;
+    background: #b2cbff;
+    border-radius: 6px;
+    text-align: center;
+    color: #232323;
+    font-size: 20px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

@@ -80,7 +80,6 @@ const getHoursByProfessional = async (req = request, res = response) => {
                 await hourFailed.save();
             }
         }
-
         const hoursGet = await Hour.find({ proffesionalId: professional.id, active: true });
         const hours = [];
 
@@ -93,22 +92,16 @@ const getHoursByProfessional = async (req = request, res = response) => {
               hour: {
                 id: h.id,
                 date: h.date,
-                status: h.status
+                status: h.status,
+                observation: h.observation
               }
             };
-          
             hours.push(hour);
           }
-
-        console.log(hours);
-
         return res.status(200).json({
             hours
         })
     } catch (error) {
-
-        console.log(error);
-
         return res.status(500).json({
             error
         })
@@ -182,11 +175,29 @@ const getHourById = async (req = request, res = response) => {
     }
 }
 
+const generateObservationById = async (req = request, res = response) => {
+    try {
+        const { id } = req.params;
+        const { observation } = req.body;
+        const hour = await Hour.findById(id.trim());
+        hour.observation = observation;
+        await hour.save();
+        return res.status(200).json({
+            msg: 'ok',
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error
+        });
+    }
+}
+
 module.exports = {
     createHour,
     scheduleHour,
     updateHour,
     getHoursByProfessional,
     getHoursByProfessionals,
-    getHourById
+    getHourById,
+    generateObservationById
 }

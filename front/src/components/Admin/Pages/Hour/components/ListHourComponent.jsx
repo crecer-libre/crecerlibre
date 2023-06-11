@@ -12,7 +12,7 @@ export const ListHourComponent = () => {
 
         //validation list for admin
         if (user.role === 'ADMIN_ROLE') {
-            getProfessionalHoursAPI(user.accessToken)
+            getProfessionalHoursAPI(user.id)
             .then((h) => {
                 if (h.status !== 200) return setErrorList('Error al mostrar horas. Intentelo más tarde.');
                 setHours(h.data.hours);
@@ -27,9 +27,6 @@ export const ListHourComponent = () => {
         if (user.role === 'PROFESSIONAL_ROLE') {
             getHoursByProfessionalAPI(user.id)
             .then((h) => {
-                    console.log(user);
-                    console.log(h)
-
                     if(h.status !== 200) return setErrorList('Error al mostrar horas. Intentelo más tarde.');
                     setHours(h.data.hours);
                 })
@@ -52,7 +49,7 @@ export const ListHourComponent = () => {
                         No hay horas registradas.
                     </div>
                     :
-                    <TableHourComponent />
+                    <TableHourComponent hours={hours}/>
             }
         </div>
     )
