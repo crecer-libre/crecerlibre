@@ -4,10 +4,6 @@ const Professional = require('../models/Professional');
 const Student = require('../models/Student');
 const { decodeToken } = require('../helpers/jwt');
 
-function compararFechas(a, b) {
-    return a.fecha - b.fecha;
-}
-
 const createHour = async (req = request, res = response) => {
     try {
         const {
@@ -192,6 +188,41 @@ const generateObservationById = async (req = request, res = response) => {
     }
 }
 
+const getAllHours = async (req = request, res = response) => {
+    try {
+        console.log('log 1');
+        const professionals = await Professional.find();
+        console.log('log 2');
+        let allHours = [];
+        for(const p of professionals){
+            const hours = await Hour.find({proffesionalId: p.id});
+            console.log('log 3');
+            for(const h of hours){
+                const student = await Student.findById(h.studentId);
+                console.log('log 4');
+                const hour = {
+                    professional: p?.name,
+                    student: student?.name,
+                    hour: {
+                        id: h.id,
+                        date: h?.date,
+                        status: h?.status,
+                        observation: h?.observation
+                    }
+                };
+                console.log(hour);
+                // add element to array
+                allHours.push(hour);
+                console.log('log 5');
+            }
+        }
+        return res.status(200).json(allHours);
+    } catch (error) {
+        console.log('que talca');
+        return res.status(500).json(error);
+    }
+}
+
 module.exports = {
     createHour,
     scheduleHour,
@@ -199,5 +230,6 @@ module.exports = {
     getHoursByProfessional,
     getHoursByProfessionals,
     getHourById,
-    generateObservationById
+    generateObservationById,
+    getAllHours
 }

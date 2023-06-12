@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from '../../../../../hooks/useForm'
 import "../styles.css";
 import { generateObservationByIdAPI } from '../../../../../helpers/hours';
+import { CrecerLibreContext } from '../../../../../context/crecerlibreContext';
 
 export const ObservationComponent = ({ id, observationProp }) => {
 
     const [value, handleInputChange] = useForm({ observation: observationProp });
     const [msg, setMsg] = useState('');
+    const { user } = useContext(CrecerLibreContext);
 
     const createObservation = (e) => {
         e.preventDefault();
@@ -28,8 +30,10 @@ export const ObservationComponent = ({ id, observationProp }) => {
                     name="observation"
                     value={value.observation}
                     onChange={handleInputChange}
+                    disabled={(user.role === 'ADMIN_ROLE' ? true : false)}
                     placeholder='Ej: Terapia Realizada' />
-                <button onClick={createObservation}>Crear</button>
+
+                {(user.role === 'ADMIN_ROLE' ? true : <button onClick={createObservation}>Crear</button>)}
             </form>
             {(msg !== '') && <p className='observation-msg'>{msg}</p>}
         </div>

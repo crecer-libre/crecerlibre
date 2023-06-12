@@ -26,12 +26,14 @@ export const ListProfessional = () => {
     return (
         <div className='list-professional'>
             {
+                (professionals.length > 0) ? 
                 professionals.map((p) => (
                     <ProfessionalCard 
                         key={p.professional.id}
                         proHour={p}
                     />
                 ))
+                : 'Actualmente no hay horas disponibles.'
             }
         </div>
     )

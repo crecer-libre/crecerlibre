@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { getHoursByProfessionalAPI, getProfessionalHoursAPI } from '../../../../../helpers/hours';
+import { getAllHoursAPI, getHoursByProfessionalAPI, getProfessionalHoursAPI } from '../../../../../helpers/hours';
 import { CrecerLibreContext } from '../../../../../context/crecerlibreContext';
 import { TableHourComponent } from './TableHourComponent';
 
@@ -12,10 +12,10 @@ export const ListHourComponent = () => {
 
         //validation list for admin
         if (user.role === 'ADMIN_ROLE') {
-            getProfessionalHoursAPI(user.id)
+            getAllHoursAPI()
             .then((h) => {
                 if (h.status !== 200) return setErrorList('Error al mostrar horas. Intentelo más tarde.');
-                setHours(h.data.hours);
+                setHours(h.data);
             })
             .catch(() => {
                 setHours([]);

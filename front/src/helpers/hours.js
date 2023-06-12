@@ -91,3 +91,16 @@ export const generateObservationByIdAPI = async (id, obj) => {
         }
     }
 }
+
+export const getAllHoursAPI = async () => {
+    try {
+        const resp = await axiosApi.get('hours/admin');
+        const { status, data } = resp;
+        return { status, data };
+    } catch (error) {
+        return {
+            status: 500,
+            data: null
+        }
+    }
+}
