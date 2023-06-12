@@ -5,7 +5,7 @@ import { createHourAPI } from '../../../../../helpers/hours';
 import { Alert } from '../../../ui/Alert';
 export const CreateHourAdmin = () => {
     const [professionals, setProfessionals] = useState([]);
-    const [professional, setProfessional] = useState(null);
+    const [professional, setProfessional] = useState('');
     const [error, setError] = useState(null);
     const [value, handleInputChange] = useForm({ date: '' });
     const {date} = value;
