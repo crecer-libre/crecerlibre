@@ -20,6 +20,7 @@ export const CreateHourAdmin = () => {
 
     const handleProfessional = (e) => {
         const value = e.target.value;
+        console.log(value);
         setProfessional(value);
     }
 
