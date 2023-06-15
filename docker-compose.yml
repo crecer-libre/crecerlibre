@@ -24,15 +24,15 @@ services:
   database:
     image: mongo:3.6.19-xenial
     container_name: mongo-db
+    volumes:
+      - mongo-data:/data/db
     ports:
       - "27017:27017"
     networks:
       - mern-app
-    volumes:
-      - mongo-data:/data/db
-networks:
-  mern-app:
-    driver: bridge
 volumes:
   mongo-data:
     driver: local
+networks:
+  mern-app:
+    driver: bridge

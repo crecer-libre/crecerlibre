@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 //archivos estaticos
 import profile from '../../../../../assets/profile.jpg';
@@ -11,27 +11,30 @@ import { getHourByIdAPI, scheduleHourAPI } from '../../../../../helpers/hours';
 import { PopUpComponent } from './PopUpComponent';
 import { RegisterComponent } from './RegisterComponent';
 import { formatearFecha } from '../../../../../helpers/functions';
+import { RegisterStudentComponent } from './RegisterStudentComponent';
 
 
 export const ScheduleHour = () => {
 
     const nagivate = useNavigate();
-    const {id} = useParams();
+    const { id } = useParams();
+    const [showModal, setShowModal] = useState(false);
     const [rut, setRut] = useState('');
     const [hour, setHour] = useState();
-    const [professional, setProfessional] = useState();
-    const [studentFound, setStudentFound] = useState();
+    const [professional, setProfessional] = useState(null);
+    const [studentFound, setStudentFound] = useState(null);
     const [scheduleMsg, setScheduleMsg] = useState({
         status: null,
         msg: ''
     });
 
+
     useEffect(() => {
         getHourByIdAPI(id)
             .then((h) => {
                 console.log(h);
-                if (h.status === 500) return ;
-                const {hour, professional} = h.data.proHour;
+                if (h.status === 500) return;
+                const { hour, professional } = h.data.proHour;
                 setHour(hour);
                 setProfessional(professional);
             });
@@ -55,15 +58,16 @@ export const ScheduleHour = () => {
                 console.log(student);
                 if (student.status == 500) {
                     setStudentFound(false);
+                    setShowModal(true)
                     return;
                 };
 
-                if(student.status == 200) {
-                    const obj = {idHour: id, rut};
+                if (student.status == 200) {
+                    const obj = { idHour: id, rut };
                     scheduleHourAPI(obj).then((schedule) => {
                         console.log(schedule);
-                        if(schedule.status == 200){
-                            
+                        if (schedule.status == 200) {
+
                             setScheduleMsg({
                                 status: 200,
                                 msg: schedule.data
@@ -73,7 +77,7 @@ export const ScheduleHour = () => {
                             }, 4000);
                         }
 
-                        if(schedule.status == 500){
+                        if (schedule.status == 500) {
                             console.log(schedule);
                             setScheduleMsg({
                                 status: 500,
@@ -111,23 +115,45 @@ export const ScheduleHour = () => {
 
                     <div className='schedule-input'>
                         <p>Rut Alumno</p>
-                        <input 
+                        <input
                             type="text"
                             placeholder='99.999.999-9'
                             onChange={onChangeRut}
                         />
                     </div>
-                    
+
                     {
-                        (scheduleMsg.status == 200) && <PopUpComponent obgMsg={scheduleMsg}/> 
+                        (scheduleMsg.status == 200) && <PopUpComponent obgMsg={scheduleMsg} />
                     }
                     {
-                        (scheduleMsg.status == 500) && <PopUpComponent obgMsg={scheduleMsg}/> 
+                        (scheduleMsg.status == 500) && <PopUpComponent obgMsg={scheduleMsg} />
                     }
-                    {
-                        (studentFound == false) && <RegisterComponent />
-                    }
-                    
+                    {showModal ? (
+                        <div className='modal-register'>
+                            <form>
+                                <div className='span-input'>
+                                    <span>Rut</span>
+                                    <input type="text" name="rut" />
+                                </div>
+                                <div>
+                                    <span>Nombre completo</span>
+                                    <input type="text" name="name" />
+                                </div>
+                                <div>
+                                    <span>Correo electrónico</span>
+                                    <input type="email" name="email" />
+                                </div>
+                                <div>
+                                    <span>Teléfono</span>
+                                    <input type="text" name="phone" />
+                                </div>
+                                <div className='form-buttons'>
+                                    <button type="submit" onClick={() => setShowModal(false)}>Cancelar</button>
+                                    <button type="submit">Registrarse</button>
+                                </div>
+                            </form>
+                        </div>
+                    ) : null}
 
                     <button onClick={scheduler} className="mt-3 p-2 rounded-full bg-green text-white text-lg">Agendar</button>
                 </div>

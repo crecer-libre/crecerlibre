@@ -79,7 +79,7 @@ export const LoginComponent = () => {
                         </div>
                         <div className='login-form-input'>
                             <input
-                                type="text"
+                                type="password"
                                 className='login-input'
                                 placeholder='Contraseña'
                                 name='password'

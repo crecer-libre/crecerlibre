@@ -177,3 +177,34 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* MODAL REGISTER */
+.modal-register {
+    margin: 0 auto;
+    position: absolute;
+    padding: 15px;
+    background: #dddddd;
+    border-radius: 6px;
+}
+
+.modal-register form .span-input {
+    display: block;
+    
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-buttons button {
+    padding: 10px;
+    border-radius: 6px;
+    background: #00ADF3;
+    color: #fff;
+    font-size: 20px;
+}
+
+.form-buttons button:hover {
+    background: #bbecff;
+}

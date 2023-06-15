@@ -11,7 +11,7 @@ const createHour = async (req = request, res = response) => {
             date
         } = req.body;
 
-        const professional = await Professional.findOne({ username });
+        const professional = await Professional.findOne({ username: username });
 
         console.log(professional.id);
         console.log(date);
