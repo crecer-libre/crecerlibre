@@ -48,3 +48,15 @@ export const formatearFecha = (fecha) => {
   // Devuelve la fecha formateada
   return dia + '/' + mes + '/' + anio + ' ' + horas + ':' + minutos;
 }
+
+export const validarNombreApellido = (nombre, apellido) => {
+  if (!nombre || !apellido) {
+    return false;
+  }
+
+  if (/\d/.test(nombre) || /\d/.test(apellido)) {
+    return false;
+  }
+
+  return true;
+};

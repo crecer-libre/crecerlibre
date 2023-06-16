@@ -6,7 +6,7 @@ const registerStudent = async (req = request, res = response) => {
         const {
             rut,
             name,
-            lastName,
+            email,
             phone
         } = req.body;
 
@@ -19,7 +19,7 @@ const registerStudent = async (req = request, res = response) => {
         const student = Student({
             rut,
             name,
-            lastName,
+            email,
             phone
         });
 

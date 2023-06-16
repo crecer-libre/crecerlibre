@@ -28,6 +28,8 @@ export const getStudentByRutAPI = async (rut) => {
 
 export const registerStudentAPI = async (obj) => {
     try {
+
+        console.log(obj);
         const resp = await axiosApi.post('/students/register', obj);
         const { status, data } = resp;
         return { status, data: data.msg };

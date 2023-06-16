@@ -8,6 +8,7 @@ export const CreateStudent = () => {
     const [value, handleInputChange] = useForm({
         rut: '',
         name: '',
+        email: '',
         phone: ''
     });
 
@@ -22,6 +23,7 @@ export const CreateStudent = () => {
     const {
         rut,
         name,
+        email,
         phone } = value;
 
     const handleCreateStudent = (e) => {
@@ -30,12 +32,13 @@ export const CreateStudent = () => {
         const student = {
             rut,
             name,
+            email,
             phone,
         };
 
 
 
-        if (rut.trim() === '' || name.trim() === '' || phone.trim() === '') {
+        if (rut === '' || name === '' || email === '' || phone === '') {
             setError('Todos los campos son obligatorios.');
             return;
         } else {
@@ -92,6 +95,7 @@ export const CreateStudent = () => {
                         <input type="text" value={rut} name="rut" onChange={handleInputChange} placeholder='Rut estudiante' />
                         <p className='format-rut'>Formato de Rut: 12345678-9</p>
                         <input type="text" value={name} name="name" onChange={handleInputChange} placeholder='Nombre de estudiante' />
+                        <input type="email" value={email} name="email" onChange={handleInputChange} placeholder='Correo eletrónico' />
                         <input type="text" value={phone} name="phone" onChange={handleInputChange} placeholder='Teléfono' />
                         <p className='format-rut'>Formato de celular: 56900000000</p>
                         {

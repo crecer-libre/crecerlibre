@@ -5,13 +5,14 @@ import profile from '../../../../../assets/profile.jpg';
 import man from '../../../../../assets/avatar_man.png';
 import woman from '../../../../../assets/avatar_woman.png';
 import "../styles.css";
-import { getStudentByRutAPI } from '../../../../../helpers/students';
+import { getStudentByRutAPI, registerStudentAPI } from '../../../../../helpers/students';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { getHourByIdAPI, scheduleHourAPI } from '../../../../../helpers/hours';
 import { PopUpComponent } from './PopUpComponent';
 import { RegisterComponent } from './RegisterComponent';
-import { formatearFecha } from '../../../../../helpers/functions';
+import { formatearFecha, validarNombreApellido, validarNumeroCelularChileno, validarRut } from '../../../../../helpers/functions';
 import { RegisterStudentComponent } from './RegisterStudentComponent';
+import { useForm } from '../../../../../hooks/useForm';
 
 
 export const ScheduleHour = () => {
@@ -27,7 +28,18 @@ export const ScheduleHour = () => {
         status: null,
         msg: ''
     });
-
+    const [validationsForm, setValidationsForm] = useState({
+        rutValidation: '',
+        nameValidation: '',
+        phoneValidation: ''
+    });
+    const [value, handleInputChange] = useForm({
+        rutForm: '',
+        nameForm: '',
+        emailForm: '',
+        phoneForm: ''
+    });
+    const [studentCreate, setStudentCreate] = useState(null);
 
     useEffect(() => {
         getHourByIdAPI(id)
@@ -95,6 +107,62 @@ export const ScheduleHour = () => {
         setRut(value);
     };
 
+    const handleOnCreateStudent = (e) => {
+        e.preventDefault();
+
+        console.log('create student!');
+
+        if (value.rutForm === '' || value.nameForm === '' || value.emailForm === '' || value.phoneForm === '') {
+            return;
+        } else {
+            if (validarRut(value.rutForm.trim()) === false) {
+                setTimeout(() => {
+                    setValidationsForm(prevState => ({
+                        ...prevState,
+                        rutValidation: 'Run invalido.'
+                    }));
+                }, 3000);
+            } else if (validarNumeroCelularChileno(value.phoneForm.trim()) === false) {
+                setTimeout(() => {
+                    setValidationsForm(prevState => ({
+                        ...prevState,
+                        phoneValidation: 'Teléfono invalido.'
+                    }));
+                }, 3000);
+            } else if (value.nameForm === '') {
+                setTimeout(() => {
+                    setValidationsForm(prevState => ({
+                        ...prevState,
+                        nameValidation: 'Debes ingresar nombre y apellido.'
+                    }));
+                }, 3000);
+            }   
+             else {
+
+                const obj = {
+                    rut: value.rutForm,
+                    name: value.nameForm,
+                    email: value.emailForm,
+                    phone: value.phoneForm
+                }
+
+                registerStudentAPI(obj)
+                    .then((std) => {
+                        console.log(std);
+                        if(std.status === 201) {
+                            setStudentCreate('Registro existoso.')
+                            setTimeout(() => {setShowModal(false)}, 3000);        
+                            return;
+                        };
+                        
+                        if(std.status === 500) return setStudentCreate('Error de registro.');
+                    })
+                    .catch((error) => setStudentCreate('Error, comuniquese con el administrador.'));
+            }
+        }
+
+    }
+
     return (
         <div className="schedule-hour animate__animated animate__fadeIn">
             <div className='schedule-hour-professional'>
@@ -129,33 +197,27 @@ export const ScheduleHour = () => {
                         (scheduleMsg.status == 500) && <PopUpComponent obgMsg={scheduleMsg} />
                     }
                     {showModal ? (
-                        <div className='modal-register'>
+                        <div className='modal-register animate__animated animate__flipInX'>
+                            <h3>Registrate</h3>
                             <form>
-                                <div className='span-input'>
-                                    <span>Rut</span>
-                                    <input type="text" name="rut" />
-                                </div>
-                                <div>
-                                    <span>Nombre completo</span>
-                                    <input type="text" name="name" />
-                                </div>
-                                <div>
-                                    <span>Correo electrónico</span>
-                                    <input type="email" name="email" />
-                                </div>
-                                <div>
-                                    <span>Teléfono</span>
-                                    <input type="text" name="phone" />
-                                </div>
+                                <input placeholder="Rut" value={value.rutForm} type="text" name="rutForm" onChange={handleInputChange}/>
+                                {(validationsForm.rutValidation !== '') && <p>Rut invalido</p>}
+                                <input placeholder="Nombre completo" value={value.nameForm} type="text" name="nameForm" onChange={handleInputChange}/>
+                                {(validationsForm.nameValidation !== '') && <p>Ingresa tu nombre y apellido</p>}
+                                <input placeholder="Correo electrónico" value={value.emailForm} type="email" name="emailForm" onChange={handleInputChange}/>
+                                <input placeholder="Teléfono" value={value.phoneForm} type="text" name="phoneForm" onChange={handleInputChange}/>
+                                {(validationsForm.phoneValidation !== '') && <p>Teléfono invalido</p>}
                                 <div className='form-buttons'>
-                                    <button type="submit" onClick={() => setShowModal(false)}>Cancelar</button>
-                                    <button type="submit">Registrarse</button>
+                                    <button onClick={handleOnCreateStudent} type="submit">Registrarse</button>
                                 </div>
                             </form>
+                            <button className="back-button" type="submit" onClick={() => setShowModal(false)}>Cancelar</button>
+                            <span className='p-form'>{studentCreate}</span>
                         </div>
                     ) : null}
 
                     <button onClick={scheduler} className="mt-3 p-2 rounded-full bg-green text-white text-lg">Agendar</button>
+
                 </div>
             </div>
         </div>
