@@ -13,7 +13,6 @@ export const CreateStudent = () => {
     });
 
     const navigate = useNavigate();
-
     const [error, setError] = useState('');
     const [errorCreate, setErrorCreate] = useState('');
     const [successCreate, setSuccessCreate] = useState('');
