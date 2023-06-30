@@ -41,14 +41,26 @@
     width: 500px;
 }
 
-.operation-create input, select {
+.operation-create input, select, .datepicker-input {
     display: block;
     margin-top: 5px;
     padding: 5px;
     border-radius: 6px;
-    background: #f1f1f1;
+    background: #666666;
     font-size: 30px;
-    color: #232323;
+    color: #ffffff;
+    outline: none;
+    width: 100%;
+}
+
+datepicker-input {
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    background-color: #666666;
+    font-size: 30px;
+    color: #ffffff;
     outline: none;
     width: 100%;
 }

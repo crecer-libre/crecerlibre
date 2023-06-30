@@ -6,12 +6,13 @@ import { ProfessionalPage } from '../Pages/Professional/ProfessionalPage'
 import { StudentPage } from '../Pages/Student/StudentPage'
 import { HourPage } from '../Pages/Hour/HourPage'
 import { ProtectRoutes } from '../../../routes/ProtectRoutes'
+import "./styles.css";
 
 export const AdminRouter = () => {
   return (
-    <div className='app'>
+    <div className='administrator'>
       <NavBar />
-      <div className='container mx-auto mt-6 p-5'>
+      <div className='mx-auto mt-6 p-5'>
         <Routes>
           <Route element={<ProtectRoutes />}>
             <Route path='/' element={<AdminPage />} />

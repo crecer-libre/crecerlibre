@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getStudentsAPI } from '../../../../helpers/students';
 
+
 export const StudentPage = () => {
 
   const [students, setStudents] = useState([]);

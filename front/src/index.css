@@ -2,3 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.professional-page-admin {
+    background: #000;
+    height: 100%;
+}

@@ -74,7 +74,8 @@ export const CreateHourAdmin = () => {
                         </select>
                         <input
                             type="datetime-local"
-                            id="date"
+                            id="datepicker"
+                            className='datepicker-input'
                             name="date"
                             value={date}
                             onChange={handleInputChange}

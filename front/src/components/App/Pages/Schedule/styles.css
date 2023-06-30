@@ -239,3 +239,44 @@
     font-size: 20px;
     border-radius: 5px;
 }
+
+/* account bank */
+.account-bank {
+    margin: 0 auto;
+    width: 350px;
+    border: 2px solid #129900;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+.account-bank #number-account {
+    font-size: 30px;
+    font-weight: 700;
+    color: #129900;
+}
+
+.account-bank #bank {
+    font-size: 22px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.account-bank #account-bank-info {
+    font-size: 20px;
+    color: #000000;
+}
+
+.account-bank #account-alert {
+    font-size: 15px;
+    color: #636363;
+    font-style: italic;
+    margin-top: 15px;
+}
+
+.account-bank #account-mail, #account-subject {
+    font-size: 17px;
+    font-weight: 700;
+    color: #000000;
+}
+

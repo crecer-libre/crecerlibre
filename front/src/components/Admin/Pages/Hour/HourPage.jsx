@@ -15,7 +15,7 @@ export const HourPage = () => {
   };
 
   return (
-    <div className='container mx-auto hour-page'>
+    <div className='mx-auto hour-page'>
       <div className='hour-list'>
       <h3 className='title-operation'>Listar horas</h3>
         <hr />

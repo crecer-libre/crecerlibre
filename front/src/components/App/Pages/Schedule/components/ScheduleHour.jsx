@@ -13,6 +13,7 @@ import { RegisterComponent } from './RegisterComponent';
 import { formatearFecha, validarNombreApellido, validarNumeroCelularChileno, validarRut } from '../../../../../helpers/functions';
 import { RegisterStudentComponent } from './RegisterStudentComponent';
 import { useForm } from '../../../../../hooks/useForm';
+import { AccountBank } from './AccountBank';
 
 
 export const ScheduleHour = () => {
@@ -136,8 +137,8 @@ export const ScheduleHour = () => {
                         nameValidation: 'Debes ingresar nombre y apellido.'
                     }));
                 }, 3000);
-            }   
-             else {
+            }
+            else {
 
                 const obj = {
                     rut: value.rutForm,
@@ -149,13 +150,13 @@ export const ScheduleHour = () => {
                 registerStudentAPI(obj)
                     .then((std) => {
                         console.log(std);
-                        if(std.status === 201) {
+                        if (std.status === 201) {
                             setStudentCreate('Registro existoso.')
-                            setTimeout(() => {setShowModal(false)}, 3000);        
+                            setTimeout(() => { setShowModal(false) }, 3000);
                             return;
                         };
-                        
-                        if(std.status === 500) return setStudentCreate('Error de registro.');
+
+                        if (std.status === 500) return setStudentCreate('Error de registro.');
                     })
                     .catch((error) => setStudentCreate('Error, comuniquese con el administrador.'));
             }
@@ -164,62 +165,66 @@ export const ScheduleHour = () => {
     }
 
     return (
-        <div className="schedule-hour animate__animated animate__fadeIn">
-            <div className='schedule-hour-professional'>
-                {
-                    (professional?.gender === 'F') ? <img src={woman} alt="" /> : <img src={man} alt="" />
-                }
-                <div className='bg-skyBlue mt-3 p-3'>
-                    <p className='text-3xl text-white'>{professional?.name}</p>
-                    <p className='text-lg text-white'>{professional?.position}</p>
-                </div>
-            </div>
-            <div className='schedule-hour-info'>
-                <h3>Información Agenda</h3>
-
-                <div className='schedule-hour-info-detail'>
-                    <p className='text-lg'>Fecha</p>
-                    <p className='text-3xl'>{formatearFecha(hour?.date)}</p>
-
-                    <div className='schedule-input'>
-                        <p>Rut Alumno</p>
-                        <input
-                            type="text"
-                            placeholder='99.999.999-9'
-                            onChange={onChangeRut}
-                        />
+        <>
+            <div className="schedule-hour animate__animated animate__fadeIn">
+                <div className='schedule-hour-professional'>
+                    {
+                        (professional?.gender === 'F') ? <img src={woman} alt="" /> : <img src={man} alt="" />
+                    }
+                    <div className='bg-skyBlue mt-3 p-3'>
+                        <p className='text-3xl text-white'>{professional?.name}</p>
+                        <p className='text-lg text-white'>{professional?.position}</p>
                     </div>
-
-                    {
-                        (scheduleMsg.status == 200) && <PopUpComponent obgMsg={scheduleMsg} />
-                    }
-                    {
-                        (scheduleMsg.status == 500) && <PopUpComponent obgMsg={scheduleMsg} />
-                    }
-                    {showModal ? (
-                        <div className='modal-register animate__animated animate__flipInX'>
-                            <h3>Registrate</h3>
-                            <form>
-                                <input placeholder="Rut" value={value.rutForm} type="text" name="rutForm" onChange={handleInputChange}/>
-                                {(validationsForm.rutValidation !== '') && <p>Rut invalido</p>}
-                                <input placeholder="Nombre completo" value={value.nameForm} type="text" name="nameForm" onChange={handleInputChange}/>
-                                {(validationsForm.nameValidation !== '') && <p>Ingresa tu nombre y apellido</p>}
-                                <input placeholder="Correo electrónico" value={value.emailForm} type="email" name="emailForm" onChange={handleInputChange}/>
-                                <input placeholder="Teléfono" value={value.phoneForm} type="text" name="phoneForm" onChange={handleInputChange}/>
-                                {(validationsForm.phoneValidation !== '') && <p>Teléfono invalido</p>}
-                                <div className='form-buttons'>
-                                    <button onClick={handleOnCreateStudent} type="submit">Registrarse</button>
-                                </div>
-                            </form>
-                            <button className="back-button" type="submit" onClick={() => setShowModal(false)}>Cancelar</button>
-                            <span className='p-form'>{studentCreate}</span>
-                        </div>
-                    ) : null}
-
-                    <button onClick={scheduler} className="mt-3 p-2 rounded-full bg-green text-white text-lg">Agendar</button>
-
                 </div>
+                <div className='schedule-hour-info'>
+                    <h3>Información Agenda</h3>
+
+                    <div className='schedule-hour-info-detail'>
+                        <p className='text-lg'>Fecha</p>
+                        <p className='text-3xl'>{formatearFecha(hour?.date)}</p>
+
+                        <div className='schedule-input'>
+                            <p>Rut Alumno</p>
+                            <input
+                                type="text"
+                                placeholder='99.999.999-9'
+                                onChange={onChangeRut}
+                            />
+                        </div>
+
+                        {
+                            (scheduleMsg.status == 200) && <PopUpComponent obgMsg={scheduleMsg} />
+                        }
+                        {
+                            (scheduleMsg.status == 500) && <PopUpComponent obgMsg={scheduleMsg} />
+                        }
+                        {showModal ? (
+                            <div className='modal-register animate__animated animate__flipInX'>
+                                <h3>Registrate</h3>
+                                <form>
+                                    <input placeholder="Rut" value={value.rutForm} type="text" name="rutForm" onChange={handleInputChange} />
+                                    {(validationsForm.rutValidation !== '') && <p>Rut invalido</p>}
+                                    <input placeholder="Nombre completo" value={value.nameForm} type="text" name="nameForm" onChange={handleInputChange} />
+                                    {(validationsForm.nameValidation !== '') && <p>Ingresa tu nombre y apellido</p>}
+                                    <input placeholder="Correo electrónico" value={value.emailForm} type="email" name="emailForm" onChange={handleInputChange} />
+                                    <input placeholder="Teléfono" value={value.phoneForm} type="text" name="phoneForm" onChange={handleInputChange} />
+                                    {(validationsForm.phoneValidation !== '') && <p>Teléfono invalido</p>}
+                                    <div className='form-buttons'>
+                                        <button onClick={handleOnCreateStudent} type="submit">Registrarse</button>
+                                    </div>
+                                </form>
+                                <button className="back-button" type="submit" onClick={() => setShowModal(false)}>Cancelar</button>
+                                <span className='p-form'>{studentCreate}</span>
+                            </div>
+                        ) : null}
+
+                        <button onClick={scheduler} className="mt-3 p-2 rounded-full bg-green text-white text-lg">Agendar</button>
+
+                    </div>
+                </div>
+
             </div>
-        </div>
+            <AccountBank />
+        </>
     )
 }
